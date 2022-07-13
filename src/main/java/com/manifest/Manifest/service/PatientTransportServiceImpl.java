@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PatientTransportServiceImpl implements PatientTransportService{
@@ -38,10 +39,31 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         patientTransportRepository.deleteById(jobId);
     }
 
-    //TODO
     @Override
     public PatientTransport updatePatientTransportById(Long jobId, PatientTransport patientTransport) {
-        return new PatientTransport();
+        PatientTransport ptDB = getPatientTransportById(jobId);
+
+        //performing blank check and null checks
+        if(Objects.nonNull(patientTransport.getPatientName()) && !"".equalsIgnoreCase(patientTransport.getPatientName())) {
+            ptDB.setPatientName(patientTransport.getPatientName());
+        }
+        if(Objects.nonNull(patientTransport.getPatientWard()) && !"".equalsIgnoreCase(patientTransport.getPatientWard())) {
+            ptDB.setPatientWard(patientTransport.getPatientWard());
+        }
+        if(Objects.nonNull(patientTransport.getPatientRoom()) && !"".equalsIgnoreCase(patientTransport.getPatientRoom())) {
+            ptDB.setPatientRoom(patientTransport.getPatientRoom());
+        }
+        if(Objects.nonNull(patientTransport.getExamination()) && !"".equalsIgnoreCase(patientTransport.getExamination())) {
+            ptDB.setExamination(patientTransport.getExamination());
+        }
+        if(Objects.nonNull(patientTransport.getStatus()) && !"".equalsIgnoreCase(patientTransport.getStatus())) {
+            ptDB.setStatus(patientTransport.getStatus());
+        }
+        if(Objects.nonNull(patientTransport.getType()) && !"".equalsIgnoreCase(patientTransport.getType())) {
+            ptDB.setType(patientTransport.getType());
+        }
+
+        return patientTransportRepository.save(ptDB);
     }
 
 }
