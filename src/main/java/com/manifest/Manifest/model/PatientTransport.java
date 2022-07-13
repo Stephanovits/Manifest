@@ -12,14 +12,16 @@ public class PatientTransport {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long jobId;
     private String patientName;
+    private String patientWard;
     private String patientRoom;
     private String examination;
     private String status;
     private String type;
 
-    public PatientTransport(Long jobId, String patientName, String patientRoom, String examination, String status, String type) {
+    public PatientTransport(Long jobId, String patientName, String patientWard, String patientRoom, String examination, String status, String type) {
         this.jobId = jobId;
         this.patientName = patientName;
+        this.patientWard = patientWard;
         this.patientRoom = patientRoom;
         this.examination = examination;
         this.status = status;
@@ -34,6 +36,7 @@ public class PatientTransport {
         return "PatientTransport{" +
                 "jobId=" + jobId +
                 ", patientName='" + patientName + '\'' +
+                ", patientWard='" + patientWard + '\'' +
                 ", patientRoom='" + patientRoom + '\'' +
                 ", examination='" + examination + '\'' +
                 ", status='" + status + '\'' +
@@ -55,6 +58,14 @@ public class PatientTransport {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
+    }
+
+    public String getPatientWard() {
+        return patientWard;
+    }
+
+    public void setPatientWard(String patientWard) {
+        this.patientWard = patientWard;
     }
 
     public String getPatientRoom() {
