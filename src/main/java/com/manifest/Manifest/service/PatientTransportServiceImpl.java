@@ -28,4 +28,9 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         patientTransportRepository.deleteAll();
     }
 
+    @Override
+    public void deletePatientTransportById(Long jobId) {
+        patientTransportRepository.deleteById(jobId);
+    }
+
 }

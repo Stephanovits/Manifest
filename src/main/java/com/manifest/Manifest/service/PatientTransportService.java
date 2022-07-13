@@ -12,5 +12,5 @@ public interface PatientTransportService {
 
     public void deleteAllPatientTransports();
 
-
+    public void deletePatientTransportById(Long jobId);
 }

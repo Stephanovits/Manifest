@@ -29,9 +29,17 @@ public class Controller {
         return patientTransportService.getAllPatientTransports();
     }
 
+    @DeleteMapping("/deletePatientTransportById/{id}")
+    public String deletePatientTransportById(@PathVariable("id") Long jobId){
+        patientTransportService.deletePatientTransportById(jobId);
+        return "Patient Transport Job successfully deleted.";
+    }
+
+
     @DeleteMapping(value = "/deleteAllPatientTransports")
-    public void deleteAllPatientTransports(){
+    public String deleteAllPatientTransports(){
         patientTransportService.deleteAllPatientTransports();
+        return "All Patient Transport Jobs successfully deleted.";
     }
 
 
