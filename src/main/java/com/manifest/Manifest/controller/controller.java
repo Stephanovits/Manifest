@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class controller {
 
@@ -25,4 +27,8 @@ public class controller {
         return patientTransportService.savePatientTransport( patientTransport);
     }
 
+    @GetMapping(value = "/getAllPatientTransports")
+    public List<PatientTransport> getAllPatientTransports() {
+        return patientTransportService.getAllPatientTransports();
+    }
 }

@@ -5,6 +5,8 @@ import com.manifest.Manifest.repository.PatientTransportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PatientTransportServiceImpl implements PatientTransportService{
 
@@ -14,5 +16,10 @@ public class PatientTransportServiceImpl implements PatientTransportService{
     @Override
     public PatientTransport savePatientTransport(PatientTransport patientTransport) {
         return patientTransportRepository.save(patientTransport);
+    }
+
+    @Override
+    public List<PatientTransport> getAllPatientTransports() {
+        return patientTransportRepository.findAll();
     }
 }
