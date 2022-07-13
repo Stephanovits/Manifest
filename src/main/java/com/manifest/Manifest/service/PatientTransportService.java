@@ -9,4 +9,8 @@ public interface PatientTransportService {
     public PatientTransport savePatientTransport(PatientTransport patientTransport);
 
     public List<PatientTransport> getAllPatientTransports();
+
+    public void deleteAllPatientTransports();
+
+
 }

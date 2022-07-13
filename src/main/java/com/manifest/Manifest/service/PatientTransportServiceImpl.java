@@ -22,4 +22,10 @@ public class PatientTransportServiceImpl implements PatientTransportService{
     public List<PatientTransport> getAllPatientTransports() {
         return patientTransportRepository.findAll();
     }
+
+    @Override
+    public void deleteAllPatientTransports() {
+        patientTransportRepository.deleteAll();
+    }
+
 }

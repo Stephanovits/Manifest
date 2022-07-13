@@ -3,10 +3,7 @@ package com.manifest.Manifest.controller;
 import com.manifest.Manifest.model.PatientTransport;
 import com.manifest.Manifest.service.PatientTransportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +28,11 @@ public class Controller {
     public List<PatientTransport> getAllPatientTransports() {
         return patientTransportService.getAllPatientTransports();
     }
+
+    @DeleteMapping(value = "/deleteAllPatientTransports")
+    public void deleteAllPatientTransports(){
+        patientTransportService.deleteAllPatientTransports();
+    }
+
+
 }
