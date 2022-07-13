@@ -34,6 +34,12 @@ public class Controller {
         return patientTransportService.getAllPatientTransports();
     }
 
+    @GetMapping(value = "/getPatientTransportsByWard/{ward}")
+    public List<PatientTransport> getPatientTransportsByWard(@PathVariable("ward") String ward) {
+        return patientTransportService.getPatientTransportByWard(ward);
+    }
+
+
     @DeleteMapping("/deletePatientTransportById/{id}")
     public String deletePatientTransportById(@PathVariable("id") Long jobId){
         patientTransportService.deletePatientTransportById(jobId);

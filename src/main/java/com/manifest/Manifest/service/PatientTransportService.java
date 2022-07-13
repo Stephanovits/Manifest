@@ -1,6 +1,7 @@
 package com.manifest.Manifest.service;
 
 import com.manifest.Manifest.model.PatientTransport;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface PatientTransportService {
 
     public PatientTransport updatePatientTransportById(Long jobId, PatientTransport patientTransport);
 
+    public List<PatientTransport> getPatientTransportByWard(String ward);
 }

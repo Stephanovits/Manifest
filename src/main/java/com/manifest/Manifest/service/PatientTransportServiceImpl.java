@@ -3,6 +3,7 @@ package com.manifest.Manifest.service;
 import com.manifest.Manifest.model.PatientTransport;
 import com.manifest.Manifest.repository.PatientTransportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,5 +66,11 @@ public class PatientTransportServiceImpl implements PatientTransportService{
 
         return patientTransportRepository.save(ptDB);
     }
+
+    @Override
+    public List<PatientTransport> getPatientTransportByWard(String ward) {
+        return patientTransportRepository.getPatientTransportByWard(ward);
+    }
+
 
 }
