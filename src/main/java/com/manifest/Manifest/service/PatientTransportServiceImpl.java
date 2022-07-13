@@ -19,6 +19,11 @@ public class PatientTransportServiceImpl implements PatientTransportService{
     }
 
     @Override
+    public PatientTransport getPatientTransportById(Long jobId) {
+        return patientTransportRepository.findById(jobId).get();
+    }
+
+    @Override
     public List<PatientTransport> getAllPatientTransports() {
         return patientTransportRepository.findAll();
     }
@@ -31,6 +36,12 @@ public class PatientTransportServiceImpl implements PatientTransportService{
     @Override
     public void deletePatientTransportById(Long jobId) {
         patientTransportRepository.deleteById(jobId);
+    }
+
+    //TODO
+    @Override
+    public PatientTransport updatePatientTransportById(Long jobId, PatientTransport patientTransport) {
+        return new PatientTransport();
     }
 
 }

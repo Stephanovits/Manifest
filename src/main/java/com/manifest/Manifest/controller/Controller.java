@@ -21,7 +21,12 @@ public class Controller {
     //@RequestBody converts whatever JSON object I pass this method to a PatientTransport
     @PostMapping(value = "/savePatientTransport")
     public PatientTransport savePatientTransport(@RequestBody PatientTransport patientTransport) {
-        return patientTransportService.savePatientTransport( patientTransport);
+        return patientTransportService.savePatientTransport(patientTransport);
+    }
+
+    @GetMapping(value = "/getPatientTransportById/{id}")
+    public PatientTransport getPatientTransportById(@PathVariable("id") Long jobId){
+        return patientTransportService.getPatientTransportById(jobId);
     }
 
     @GetMapping(value = "/getAllPatientTransports")
@@ -35,12 +40,15 @@ public class Controller {
         return "Patient Transport Job successfully deleted.";
     }
 
-
     @DeleteMapping(value = "/deleteAllPatientTransports")
     public String deleteAllPatientTransports(){
         patientTransportService.deleteAllPatientTransports();
         return "All Patient Transport Jobs successfully deleted.";
     }
 
+    @PutMapping("updatePatientTransportById/{id}")
+    public PatientTransport updatePatientTransportById(@PathVariable("id") Long jobId, @RequestBody PatientTransport patientTransport) {
+        return patientTransportService.updatePatientTransportById(jobId, patientTransport);
+    }
 
 }

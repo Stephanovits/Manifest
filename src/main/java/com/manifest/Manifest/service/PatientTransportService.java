@@ -8,9 +8,14 @@ public interface PatientTransportService {
 
     public PatientTransport savePatientTransport(PatientTransport patientTransport);
 
+    PatientTransport getPatientTransportById(Long jobId);
+
     public List<PatientTransport> getAllPatientTransports();
 
     public void deleteAllPatientTransports();
 
     public void deletePatientTransportById(Long jobId);
+
+    public PatientTransport updatePatientTransportById(Long jobId, PatientTransport patientTransport);
+
 }
