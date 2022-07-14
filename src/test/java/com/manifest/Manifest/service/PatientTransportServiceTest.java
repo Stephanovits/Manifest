@@ -105,7 +105,73 @@ class PatientTransportServiceTest {
     }
 
     @Test
-    void updatePatientTransportByIdTEST() {
+    void updatePatientTransportByIdTEST_updateName() {
+        //given
+        Long l = Integer.toUnsignedLong(1);
+
+        PatientTransport old = new PatientTransport();
+        old.setJobId(l);
+        old.setPatientName("Huber");
+        old.setPatientWard("W1");
+        old.setPatientRoom("123");
+        old.setExamination("CD");
+        old.setStatus("Waiting");
+        old.setType("Routine");
+
+        PatientTransport updated = new PatientTransport();
+        updated.setJobId(l);
+        updated.setPatientName("Skywalker");
+        updated.setPatientWard("W1");
+        updated.setPatientRoom("123");
+        updated.setExamination("CD");
+        updated.setStatus("Waiting");
+        updated.setType("Routine");
+
+        //when
+        Mockito.when(patientTransportRepository.findById(l)).thenReturn(Optional.of(old));
+        // you need to call save() on 'old' because this is the actual object save() is going to get called on in the method
+        Mockito.when(patientTransportRepository.save(old)).thenReturn(updated);
+        PatientTransport actual = patientTransportService.updatePatientTransportById(l, updated);
+
+        //then
+        assertEquals(old.getPatientRoom(), actual.getPatientRoom());
+    }
+
+    @Test
+    void updatePatientTransportByIdTEST_updateWard() {
+        //given
+        Long l = Integer.toUnsignedLong(1);
+
+        PatientTransport old = new PatientTransport();
+        old.setJobId(l);
+        old.setPatientName("Huber");
+        old.setPatientWard("W1");
+        old.setPatientRoom("123");
+        old.setExamination("CD");
+        old.setStatus("Waiting");
+        old.setType("Routine");
+
+        PatientTransport updated = new PatientTransport();
+        updated.setJobId(l);
+        updated.setPatientName("Huber");
+        updated.setPatientWard("W2");
+        updated.setPatientRoom("123");
+        updated.setExamination("CD");
+        updated.setStatus("Waiting");
+        updated.setType("Routine");
+
+        //when
+        Mockito.when(patientTransportRepository.findById(l)).thenReturn(Optional.of(old));
+        // you need to call save() on 'old' because this is the actual object save() is going to get called on in the method
+        Mockito.when(patientTransportRepository.save(old)).thenReturn(updated);
+        PatientTransport actual = patientTransportService.updatePatientTransportById(l, updated);
+
+        //then
+        assertEquals(old.getPatientRoom(), actual.getPatientRoom());
+    }
+
+    @Test
+    void updatePatientTransportByIdTEST_updateRoom() {
         //given
         Long l = Integer.toUnsignedLong(1);
 
@@ -129,12 +195,111 @@ class PatientTransportServiceTest {
 
         //when
         Mockito.when(patientTransportRepository.findById(l)).thenReturn(Optional.of(old));
-        Mockito.when(patientTransportRepository.save(updated)).thenReturn(updated);
-
+        // you need to call save() on 'old' because this is the actual object save() is going to get called on in the method
+        Mockito.when(patientTransportRepository.save(old)).thenReturn(updated);
         PatientTransport actual = patientTransportService.updatePatientTransportById(l, updated);
 
         //then
-        //assertEquals(old, actual);
+        assertEquals(old.getPatientRoom(), actual.getPatientRoom());
+    }
+
+    @Test
+    void updatePatientTransportByIdTEST_updateExamination() {
+        //given
+        Long l = Integer.toUnsignedLong(1);
+
+        PatientTransport old = new PatientTransport();
+        old.setJobId(l);
+        old.setPatientName("Huber");
+        old.setPatientWard("W1");
+        old.setPatientRoom("123");
+        old.setExamination("CD");
+        old.setStatus("Waiting");
+        old.setType("Routine");
+
+        PatientTransport updated = new PatientTransport();
+        updated.setJobId(l);
+        updated.setPatientName("Huber");
+        updated.setPatientWard("W1");
+        updated.setPatientRoom("123");
+        updated.setExamination("MR");
+        updated.setStatus("Waiting");
+        updated.setType("Routine");
+
+        //when
+        Mockito.when(patientTransportRepository.findById(l)).thenReturn(Optional.of(old));
+        // you need to call save() on 'old' because this is the actual object save() is going to get called on in the method
+        Mockito.when(patientTransportRepository.save(old)).thenReturn(updated);
+        PatientTransport actual = patientTransportService.updatePatientTransportById(l, updated);
+
+        //then
+        assertEquals(old.getPatientRoom(), actual.getPatientRoom());
+    }
+
+    @Test
+    void updatePatientTransportByIdTEST_updateStatus() {
+        //given
+        Long l = Integer.toUnsignedLong(1);
+
+        PatientTransport old = new PatientTransport();
+        old.setJobId(l);
+        old.setPatientName("Huber");
+        old.setPatientWard("W1");
+        old.setPatientRoom("123");
+        old.setExamination("CD");
+        old.setStatus("Waiting");
+        old.setType("Routine");
+
+        PatientTransport updated = new PatientTransport();
+        updated.setJobId(l);
+        updated.setPatientName("Huber");
+        updated.setPatientWard("W1");
+        updated.setPatientRoom("123");
+        updated.setExamination("CD");
+        updated.setStatus("Examination");
+        updated.setType("Routine");
+
+        //when
+        Mockito.when(patientTransportRepository.findById(l)).thenReturn(Optional.of(old));
+        // you need to call save() on 'old' because this is the actual object save() is going to get called on in the method
+        Mockito.when(patientTransportRepository.save(old)).thenReturn(updated);
+        PatientTransport actual = patientTransportService.updatePatientTransportById(l, updated);
+
+        //then
+        assertEquals(old.getPatientRoom(), actual.getPatientRoom());
+    }
+
+    @Test
+    void updatePatientTransportByIdTEST_updateType() {
+        //given
+        Long l = Integer.toUnsignedLong(1);
+
+        PatientTransport old = new PatientTransport();
+        old.setJobId(l);
+        old.setPatientName("Huber");
+        old.setPatientWard("W1");
+        old.setPatientRoom("123");
+        old.setExamination("CD");
+        old.setStatus("Waiting");
+        old.setType("Routine");
+
+        PatientTransport updated = new PatientTransport();
+        updated.setJobId(l);
+        updated.setPatientName("Huber");
+        updated.setPatientWard("W1");
+        updated.setPatientRoom("123");
+        updated.setExamination("CD");
+        updated.setStatus("Waiting");
+        updated.setType("Emergency");
+
+        //when
+        Mockito.when(patientTransportRepository.findById(l)).thenReturn(Optional.of(old));
+        // you need to call save() on 'old' because this is the actual object save() is going to get called on in the method
+        Mockito.when(patientTransportRepository.save(old)).thenReturn(updated);
+        PatientTransport actual = patientTransportService.updatePatientTransportById(l, updated);
+
+        //then
+        assertEquals(old.getPatientRoom(), actual.getPatientRoom());
     }
 
     @Test

@@ -64,7 +64,8 @@ public class PatientTransportServiceImpl implements PatientTransportService{
             ptDB.setType(patientTransport.getType());
         }
 
-        return patientTransportRepository.save(ptDB);
+        PatientTransport output = patientTransportRepository.save(ptDB);
+        return output;
     }
 
     @Override
