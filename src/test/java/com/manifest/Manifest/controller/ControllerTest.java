@@ -186,6 +186,33 @@ class ControllerTest {
     }
 
     @Test
-    void updatePatientTransportByIdTEST() {
+    void updatePatientTransportByIdTEST() throws Exception {
+        PatientTransport pt1 = new PatientTransport();
+        pt1.setJobId(Integer.toUnsignedLong(1));
+        pt1.setPatientName("Huber");
+        pt1.setPatientWard("W1");
+        pt1.setPatientRoom("000");
+        pt1.setExamination("CD");
+        pt1.setStatus("Waiting");
+        pt1.setType("Routine");
+
+        PatientTransport pt2 = new PatientTransport();
+        pt2.setJobId(Integer.toUnsignedLong(1));
+        pt2.setPatientName("Huber");
+        pt2.setPatientWard("W1");
+        pt2.setPatientRoom("999");
+        pt2.setExamination("CD");
+        pt2.setStatus("Waiting");
+        pt2.setType("Routine");
+
+        String exampleJson = "{\"patientName\":\"Huber\",\"patientWard\":\"W1\",\"patientRoom\":\"000\",\"examination\":\"CD\",\"status\":\"Waiting\",\"type\":\"Routine\"}";
+
+        Mockito.when(patientTransportService.updatePatientTransportById(Mockito.any(Long.class), Mockito.any(PatientTransport.class))).thenReturn(pt2);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/updatePatientTransportById/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(exampleJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.patientRoom").value(pt2.getPatientRoom()));
     }
 }
