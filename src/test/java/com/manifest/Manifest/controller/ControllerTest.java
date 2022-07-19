@@ -177,12 +177,12 @@ class ControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/deletePatientTransportById/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Patient Transport Job with patientId 1 successfully deleted."));
-
     }
 
     @Test
-    void deleteAllPatientTransportsTEST() {
-
+    void deleteAllPatientTransportsTEST() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/deleteAllPatientTransports"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
