@@ -140,7 +140,36 @@ class ControllerTest {
     }
 
     @Test
-    void getPatientTransportsByWardTEST() {
+    void getPatientTransportsByWardTEST() throws Exception {
+        List<PatientTransport> expected = new ArrayList<PatientTransport>();
+
+        PatientTransport pt1 = new PatientTransport();
+        pt1.setJobId(Integer.toUnsignedLong(1));
+        pt1.setPatientName("Huber");
+        pt1.setPatientWard("W1");
+        pt1.setPatientRoom("123");
+        pt1.setExamination("CD");
+        pt1.setStatus("Waiting");
+        pt1.setType("Routine");
+
+        PatientTransport pt2 = new PatientTransport();
+        pt2.setJobId(Integer.toUnsignedLong(2));
+        pt2.setPatientName("Weber");
+        pt2.setPatientWard("W1");
+        pt2.setPatientRoom("999");
+        pt2.setExamination("MR");
+        pt2.setStatus("Waiting");
+        pt2.setType("Emergency");
+
+        expected.add(pt1);
+        expected.add(pt2);
+
+        Mockito.when(patientTransportService.getPatientTransportByWard("W1")).thenReturn(expected);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/getPatientTransportsByWard/W1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].patientName").value(pt1.getPatientName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].patientName").value(pt2.getPatientName()));
     }
 
     @Test
