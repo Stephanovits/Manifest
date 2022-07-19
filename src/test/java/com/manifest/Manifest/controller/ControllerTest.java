@@ -174,8 +174,6 @@ class ControllerTest {
 
     @Test
     void deletePatientTransportByIdTEST() throws Exception {
-        patientTransportService.deletePatientTransportById(1L);
-
         mockMvc.perform(MockMvcRequestBuilders.delete("/deletePatientTransportById/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Patient Transport Job with patientId 1 successfully deleted."));
