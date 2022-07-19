@@ -80,7 +80,9 @@ class ControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(exampleJson);
 
-        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.patientName").value(pt2.getPatientName()));
     }
 
     @Test
