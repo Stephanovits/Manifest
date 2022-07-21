@@ -29,7 +29,7 @@ public class Controller {
     }
 
     //Displays patientTransportUpdateFrom
-    @GetMapping(value = "/updatePatientTransport/{id}")
+    @GetMapping(value = "/updatePatientTransportById/{id}")
     public String updatePatientTransport(@PathVariable("id") Long jobId, Model model) {
         model.addAttribute("patientTransport", patientTransportService.getPatientTransportById(jobId));
         return "patientTransportUpdateForm";
@@ -69,11 +69,6 @@ public class Controller {
     public String deleteAllPatientTransports(){
         patientTransportService.deleteAllPatientTransports();
         return "All Patient Transport Jobs successfully deleted.";
-    }
-
-    @PutMapping("updatePatientTransportById/{id}")
-    public PatientTransport updatePatientTransportById(@PathVariable("id") Long jobId, @RequestBody PatientTransport patientTransport) {
-        return patientTransportService.updatePatientTransportById(jobId, patientTransport);
     }
 
 }
