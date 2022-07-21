@@ -1,5 +1,7 @@
 package com.manifest.Manifest.model;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,16 +17,15 @@ public class PatientTransport {
     private String patientWard;
     private String patientRoom;
     private String examination;
-    private String status;
+    private String status = "Waiting";
     private String type;
 
-    public PatientTransport(Long jobId, String patientName, String patientWard, String patientRoom, String examination, String status, String type) {
+    public PatientTransport(Long jobId, String patientName, String patientWard, String patientRoom, String examination, String type) {
         this.jobId = jobId;
         this.patientName = patientName;
         this.patientWard = patientWard;
         this.patientRoom = patientRoom;
         this.examination = examination;
-        this.status = status;
         this.type = type;
     }
 
