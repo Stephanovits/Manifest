@@ -20,11 +20,19 @@ public class Controller {
         return "index";
     }
 
+    //Displays patientTransportFrom
     @GetMapping(value = "/createPatientTransport")
     public String createPatientTransport(Model model) {
         PatientTransport patientTransport = new PatientTransport();
         model.addAttribute("patientTransport", patientTransport);
         return "patientTransportForm";
+    }
+
+    //Displays patientTransportUpdateFrom
+    @GetMapping(value = "/updatePatientTransport/{id}")
+    public String updatePatientTransport(@PathVariable("id") Long jobId, Model model) {
+        model.addAttribute("patientTransport", patientTransportService.getPatientTransportById(jobId));
+        return "patientTransportUpdateForm";
     }
 
     //@RequestBody converts whatever JSON object I pass this method to a PatientTransport
