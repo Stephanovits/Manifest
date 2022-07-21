@@ -3,19 +3,21 @@ package com.manifest.Manifest.controller;
 import com.manifest.Manifest.model.PatientTransport;
 import com.manifest.Manifest.service.PatientTransportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@org.springframework.stereotype.Controller
 public class Controller {
 
     @Autowired
     private PatientTransportService patientTransportService;
 
     @GetMapping(value = "/")
-    public String helloWorld() {
-        return "Welcome to Manifest";
+    public String helloWorld(Model model) {
+        model.addAttribute("listPatientTransport", patientTransportService.getAllPatientTransports());
+        return "index";
     }
 
     //@RequestBody converts whatever JSON object I pass this method to a PatientTransport
