@@ -20,10 +20,19 @@ public class Controller {
         return "index";
     }
 
+    @GetMapping(value = "/createPatientTransport")
+    public String createPatientTransport(Model model) {
+        PatientTransport patientTransport = new PatientTransport();
+        model.addAttribute("patientTransport", patientTransport);
+        return "patientTransportForm";
+    }
+
     //@RequestBody converts whatever JSON object I pass this method to a PatientTransport
     @PostMapping(value = "/savePatientTransport")
-    public PatientTransport savePatientTransport(@RequestBody PatientTransport patientTransport) {
-        return patientTransportService.savePatientTransport(patientTransport);
+    public String savePatientTransport(@ModelAttribute("patientTransport") PatientTransport patientTransport) {
+        patientTransportService.savePatientTransport(patientTransport);
+        return "redirect:/";
+
     }
 
     @GetMapping(value = "/getPatientTransportById/{id}")

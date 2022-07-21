@@ -10,7 +10,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="index.html">Manifest</a>
+                <a class="navbar-brand" th:href="@{/}">Manifest</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-0 mb-lg-0">
                         <li class="nav-item">
@@ -23,6 +23,14 @@
     </header>
 
     <main>
+        <div class="container my-3">
+            <div class="row gx-1 gy-1">
+                <div class="col">
+                    <a th:href="@{/createPatientTransport}" class="btn btn-primary">New Patient Transport</a>
+                </div>
+            </div>
+        </div>
+
         <div class="container my-3">
             <div class="row gx-1 gy-1">
                 <div class="col">
