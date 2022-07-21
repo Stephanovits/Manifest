@@ -61,10 +61,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="type" class="form-label">Type:</label>
-                        <input type="text" class="form-control" id="type" th:field="*{type}">
+                        <select class="form-select" aria-label="Default select example" id="type" th:field="*{type}">
+                            <option value="Routine">Routine</option>
+                            <option value="Emergency">EMERGENCY</option>
+                        </select>
                     </div>
-
-
                     <button type="submit" class="btn btn-primary">Create Job</button>
                 </form>
             </div>
