@@ -45,11 +45,19 @@
                     </div>
                     <div class="mb-3">
                         <label for="patientWard" class="form-label">Ward:</label>
-                        <input type="text" class="form-control" id="patientWard" th:field="*{patientWard}">
+                        <select class="form-select" aria-label="Default select example" id="patientWard" th:field="*{patientWard}">
+                            <option value="W1">W1</option>
+                            <option value="W2">W2</option>
+                            <option value="W3">W3</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="examination" class="form-label">Examination:</label>
-                        <input type="text" class="form-control" id="examination" th:field="*{examination}">
+                        <select class="form-select" aria-label="Default select example" id="examination" th:field="*{examination}">
+                            <option value="W1">CD</option>
+                            <option value="W2">MR</option>
+                            <option value="W3">X-ray</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="status" class="form-label">Status:</label>
@@ -59,6 +67,7 @@
                         <label for="type" class="form-label">Type:</label>
                         <input type="text" class="form-control" id="type" th:field="*{type}">
                     </div>
+
 
                     <button type="submit" class="btn btn-primary">Create Job</button>
                 </form>
