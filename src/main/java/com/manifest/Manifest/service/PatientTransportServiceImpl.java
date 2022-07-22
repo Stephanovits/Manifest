@@ -73,7 +73,6 @@ public class PatientTransportServiceImpl implements PatientTransportService{
 
     @Override
     public PatientTransport movePatientTransportPhase(PatientTransport patientTransport) {
-
         PatientTransport output = patientTransport;
         String currentStatus = patientTransport.getStatus();
 
@@ -97,7 +96,34 @@ public class PatientTransportServiceImpl implements PatientTransportService{
                 output.setStatus("Completed");
                 break;
         }
+        return output;
+    }
 
+    @Override
+    public PatientTransport revokePatientTransportPhase(PatientTransport patientTransport) {
+        PatientTransport output = patientTransport;
+        String currentStatus = patientTransport.getStatus();
+
+        switch(currentStatus) {
+            case "Completed" :
+                output.setStatus("Transit to Ward");
+                break;
+            case "Transit to Ward" :
+                output.setStatus("Examination Completed");
+                break;
+            case "Examination Completed" :
+                output.setStatus("Patient at Examination");
+                break;
+            case "Patient at Examination" :
+                output.setStatus("Transit to Examination");
+                break;
+            case "Transit to Examination" :
+                output.setStatus("Requested for Examination");
+                break;
+            case "Requested for Examination" :
+                output.setStatus("Waiting");
+                break;
+        }
         return output;
     }
 

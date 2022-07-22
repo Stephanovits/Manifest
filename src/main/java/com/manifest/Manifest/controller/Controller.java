@@ -73,12 +73,18 @@ public class Controller {
 
     //Moves the status of a PatientTransport to next pahse
     @GetMapping(value = "/movePatientTransportPhase/{id}")
-    public String updatePatientTransport(@PathVariable("id") Long jobId) {
+    public String movePatientTransportPhase(@PathVariable("id") Long jobId) {
         PatientTransport patientTransportToMove = patientTransportService.getPatientTransportById(jobId);
-        System.out.println("My Output >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println(patientTransportToMove.getJobId());
 
         patientTransportService.savePatientTransport(patientTransportService.movePatientTransportPhase(patientTransportToMove));
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/revokePatientTransportPhase/{id}")
+    public String revokePatientTransportPhase(@PathVariable("id") Long jobId) {
+        PatientTransport patientTransportToRevoke = patientTransportService.getPatientTransportById(jobId);
+        patientTransportService.savePatientTransport(patientTransportService.revokePatientTransportPhase(patientTransportToRevoke));
         return "redirect:/";
     }
 

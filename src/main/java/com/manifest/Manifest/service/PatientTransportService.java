@@ -22,4 +22,6 @@ public interface PatientTransportService {
     public List<PatientTransport> getPatientTransportByWard(String ward);
 
     public PatientTransport movePatientTransportPhase(PatientTransport patientTransport);
+
+    public PatientTransport revokePatientTransportPhase(PatientTransport patientTransport);
 }
