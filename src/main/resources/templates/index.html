@@ -27,7 +27,7 @@
         <div class="container my-3">
             <div class="row gx-1 gy-1">
                 <div class="col">
-                    <a th:href="@{/createPatientTransport}" class="btn btn-primary">New Patient Transport</a>
+                    <a th:href="@{/createPatientTransport}" class="btn btn-primary">New Patient Transport <i class="bi bi-plus-lg"></i></a>
                 </div>
             </div>
         </div>
@@ -54,10 +54,21 @@
                                 <td colspan="2" class="col-5"> <span th:text="${patientTransport.status}"></span> </td>
                             </tr>
                             <tr>
-                                <td><a th:href="@{/movePatientTransportPhase/{id}(id=${patientTransport.jobId})}" class="btn btn-primary">Move Phase</a></td>
-                                <td><a th:href="@{/revokePatientTransportPhase/{id}(id=${patientTransport.jobId})}" class="btn btn-primary">Revoke Phase</a></td>
+                                <td>
+                                    <a th:href="@{/movePatientTransportPhase/{id}(id=${patientTransport.jobId})}"
+                                       class="btn btn-primary btn-sm"
+                                       style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
+                                        Move Phase <i class="bi bi-arrow-clockwise"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/revokePatientTransportPhase/{id}(id=${patientTransport.jobId})}"
+                                       class="btn btn-outline-secondary btn-sm"
+                                       style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
+                                        Revoke Phase <i class="bi bi-arrow-counterclockwise"></i>
+                                    </a>
+                                </td>
                             </tr>
-
                         </table>
                     </div>
                 </div>
