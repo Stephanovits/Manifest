@@ -71,4 +71,15 @@ public class Controller {
         return "All Patient Transport Jobs successfully deleted.";
     }
 
+    //Moves the status of a PatientTransport to next pahse
+    @GetMapping(value = "/movePatientTransportPhase/{id}")
+    public String updatePatientTransport(@PathVariable("id") Long jobId) {
+        PatientTransport patientTransportToMove = patientTransportService.getPatientTransportById(jobId);
+        System.out.println("My Output >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println(patientTransportToMove.getJobId());
+
+        patientTransportService.savePatientTransport(patientTransportService.movePatientTransportPhase(patientTransportToMove));
+        return "redirect:/";
+    }
+
 }

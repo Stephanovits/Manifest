@@ -20,4 +20,6 @@ public interface PatientTransportService {
     public PatientTransport updatePatientTransportById(Long jobId, PatientTransport patientTransport);
 
     public List<PatientTransport> getPatientTransportByWard(String ward);
+
+    public PatientTransport movePatientTransportPhase(PatientTransport patientTransport);
 }

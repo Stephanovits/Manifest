@@ -54,8 +54,8 @@
                                 <td colspan="2" class="col-5"> <span th:text="${patientTransport.status}"></span> </td>
                             </tr>
                             <tr>
-                                <td>Move Phase</td>
-                                <td>Revoke Phase</td>
+                                <td><a th:href="@{/movePatientTransportPhase/{id}(id=${patientTransport.jobId})}" class="btn btn-primary">Move Phase</a></td>
+                                <td><a th:href="@{#}" class="btn btn-primary">Revoke Phase</a></td>
                             </tr>
 
                         </table>
