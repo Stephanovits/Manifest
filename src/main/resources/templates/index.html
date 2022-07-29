@@ -62,6 +62,16 @@
 
                 <div class="row gx-1 gy-1">
                     <div class="col">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" th:field="*{selectionDto.incCompletedJobs}">
+                            <input type='hidden' th:name="${selectionDto.incCompletedJobs}">
+                            <span> show completed jobs </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gx-1 gy-1">
+                    <div class="col">
                         <button type="submit" class="btn btn-primary btn-sm"> view selection </i></button>
                     </div>
                 </div>
