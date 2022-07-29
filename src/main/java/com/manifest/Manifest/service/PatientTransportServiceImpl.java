@@ -146,6 +146,7 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         CriteriaQuery<PatientTransport> criteriaQuery = criteriaBuilder.createQuery(PatientTransport.class);
         Root<PatientTransport> root = criteriaQuery.from(PatientTransport.class);
 
+        //defining criteria for ward-selection
         List<Predicate> wardCriterias = new ArrayList<>();
         for(SelectionAttribute ward: selectionDto.getWardList()) {
             if (ward.getSelected()){
@@ -154,6 +155,7 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         }
         Predicate wardPredicate = criteriaBuilder.or(wardCriterias.toArray(new Predicate[wardCriterias.size()]));
 
+        //defining criteria for examination-selection
         List<Predicate> examinationCriterias = new ArrayList<>();
         for(SelectionAttribute exam: selectionDto.getExaminationList()) {
             if (exam.getSelected()){
@@ -162,9 +164,17 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         }
         Predicate examinationPredicate = criteriaBuilder.or(examinationCriterias.toArray(new Predicate[examinationCriterias.size()]));
 
+        //defining criteria for including or excluding completed jobs
+        Predicate statusCriteria;
+        if(selectionDto.getIncCompletedJobs()){
+            statusCriteria = criteriaBuilder.like(root.get("status"), "%");
+        } else {
+            statusCriteria = criteriaBuilder.notEqual(root.get("status"), "completed");
+        }
 
-        Predicate finalPredicate = criteriaBuilder.and(wardPredicate);
-        criteriaQuery.where(finalPredicate, examinationPredicate);
+
+        Predicate finalPredicate = criteriaBuilder.and(wardPredicate, examinationPredicate, statusCriteria);
+        criteriaQuery.where(finalPredicate);
 
         List<PatientTransport> result = entityManager.createQuery(criteriaQuery).getResultList();
         return result;

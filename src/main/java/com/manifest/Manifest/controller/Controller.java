@@ -61,7 +61,7 @@ public class Controller {
             }
             selectionDto.setExaminationList(l2);
 
-            selectionDto.setIncCompletedJobs(true);
+            selectionDto.setIncCompletedJobs(false);
         }
 
 
