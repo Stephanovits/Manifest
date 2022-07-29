@@ -146,18 +146,25 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         CriteriaQuery<PatientTransport> criteriaQuery = criteriaBuilder.createQuery(PatientTransport.class);
         Root<PatientTransport> root = criteriaQuery.from(PatientTransport.class);
 
-
-
         List<Predicate> wardCriterias = new ArrayList<>();
         for(SelectionAttribute ward: selectionDto.getWardList()) {
             if (ward.getSelected()){
                 wardCriterias.add(criteriaBuilder.equal(root.get("patientWard"), ward.getAttributeName()));
             }
         }
+        Predicate wardPredicate = criteriaBuilder.or(wardCriterias.toArray(new Predicate[wardCriterias.size()]));
 
-        Predicate finalPredicate = criteriaBuilder.or(wardCriterias.toArray(new Predicate[wardCriterias.size()]));
+        List<Predicate> examinationCriterias = new ArrayList<>();
+        for(SelectionAttribute exam: selectionDto.getExaminationList()) {
+            if (exam.getSelected()){
+                examinationCriterias.add(criteriaBuilder.equal(root.get("examination"), exam.getAttributeName()));
+            }
+        }
+        Predicate examinationPredicate = criteriaBuilder.or(examinationCriterias.toArray(new Predicate[examinationCriterias.size()]));
 
-        criteriaQuery.where(finalPredicate);
+
+        Predicate finalPredicate = criteriaBuilder.and(wardPredicate);
+        criteriaQuery.where(finalPredicate, examinationPredicate);
 
         List<PatientTransport> result = entityManager.createQuery(criteriaQuery).getResultList();
         return result;
