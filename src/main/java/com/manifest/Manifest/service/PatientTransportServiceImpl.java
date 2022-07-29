@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -172,13 +173,20 @@ public class PatientTransportServiceImpl implements PatientTransportService{
             statusCriteria = criteriaBuilder.notEqual(root.get("status"), "completed");
         }
 
-
         Predicate finalPredicate = criteriaBuilder.and(wardPredicate, examinationPredicate, statusCriteria);
         criteriaQuery.where(finalPredicate);
 
         List<PatientTransport> result = entityManager.createQuery(criteriaQuery).getResultList();
-        return result;
 
+        //sorting final list
+        if(selectionDto.getSort() == SelectionDto.Sort.WARD) {
+            result.sort(Comparator.comparing(PatientTransport::getPatientWard));
+        }
+        else if (selectionDto.getSort() == SelectionDto.Sort.EXAMINATION) {
+            result.sort(Comparator.comparing(PatientTransport::getExamination));
+        }
+
+        return result;
     }
 
 }

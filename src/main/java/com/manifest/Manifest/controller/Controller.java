@@ -62,6 +62,7 @@ public class Controller {
             selectionDto.setExaminationList(l2);
 
             selectionDto.setIncCompletedJobs(false);
+            selectionDto.setSort(SelectionDto.Sort.WARD);
         }
 
 

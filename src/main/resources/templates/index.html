@@ -66,13 +66,23 @@
                     </div>
                     <div class="row g-5">
                         <div class="col">
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" th:field="*{selectionDto.sort}" value="WARD" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary" th:for="sort1">Ward</label>
+
+                                <input type="radio" class="btn-check" th:field="*{selectionDto.sort}" value="EXAMINATION" autocomplete="off">
+                                <label class="btn btn-outline-primary" th:for="sort2">Examination</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-5">
+                        <div class="col">
                             <button type="submit" class="btn btn-primary btn-sm">view selection <i class="bi bi-binoculars"></i></i></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
         <div class="container my-3">
             <div class="row gx-1 gy-1">
                 <div class="col">

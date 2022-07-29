@@ -6,9 +6,14 @@ import java.util.List;
 
 public class SelectionDto {
 
+    public enum Sort {
+        WARD, EXAMINATION
+    }
+
     List<SelectionAttribute> wardList;
     List<SelectionAttribute> examinationList;
     Boolean incCompletedJobs;
+    Sort sort;
 
     @Override
     public String toString() {
@@ -16,7 +21,16 @@ public class SelectionDto {
                 "wardList=" + wardList +
                 ", examinationList=" + examinationList +
                 ", incCompletedJobs=" + incCompletedJobs +
+                ", sort=" + sort +
                 '}';
+    }
+
+    public Sort getSort() {
+        return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
     }
 
     public List<SelectionAttribute> getWardList() {
