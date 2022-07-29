@@ -35,7 +35,7 @@ public class Controller {
         wardData.add("W3");
 
         if(selectionDto.getWardList() == null){
-            System.out.println("RUNNING INITIAL SETUP");
+            System.out.println("RUNNING INITIAL DTO-SETUP");
             List<SelectionAttribute> l = new ArrayList<>();
 
             for(String s: wardData) {
@@ -47,17 +47,11 @@ public class Controller {
             selectionDto.setWardList(l);
         }
 
-        if(selectionDto.getBool1() == null){
-            selectionDto.setBool1(true);
-        }
-        if(selectionDto.getBool2() == null){
-            selectionDto.setBool2(true);
-        }
 
 
         System.out.println(selectionDto);
         model.addAttribute("selectionDto", selectionDto);
-        model.addAttribute("listPatientTransport", patientTransportService.getPatientTransportByCustom(wardList));
+        model.addAttribute("listPatientTransport", patientTransportService.getPatientTransportByCustom(selectionDto));
 
         return "index";
     }

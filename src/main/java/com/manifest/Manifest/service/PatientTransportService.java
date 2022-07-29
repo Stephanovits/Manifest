@@ -1,5 +1,6 @@
 package com.manifest.Manifest.service;
 
+import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.PatientTransport;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,5 +26,5 @@ public interface PatientTransportService {
 
     public PatientTransport revokePatientTransportPhase(PatientTransport patientTransport);
 
-    public List<PatientTransport> getPatientTransportByCustom(List<String> wards);
+    public List<PatientTransport> getPatientTransportByCustom(SelectionDto selectionDto);
 }

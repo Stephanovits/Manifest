@@ -7,15 +7,15 @@ import java.util.List;
 public class SelectionDto {
 
     List<SelectionAttribute> wardList;
-    Boolean bool1;
-    Boolean bool2;
+    List<SelectionAttribute> examinationList;
+    Boolean incCompletedJobs;
 
     @Override
     public String toString() {
         return "SelectionDto{" +
                 "wardList=" + wardList +
-                ", bool1=" + bool1 +
-                ", bool2=" + bool2 +
+                ", examinationList=" + examinationList +
+                ", incCompletedJobs=" + incCompletedJobs +
                 '}';
     }
 
@@ -27,19 +27,19 @@ public class SelectionDto {
         this.wardList = wardList;
     }
 
-    public Boolean getBool1() {
-        return bool1;
+    public List<SelectionAttribute> getExaminationList() {
+        return examinationList;
     }
 
-    public void setBool1(Boolean bool1) {
-        this.bool1 = bool1;
+    public void setExaminationList(List<SelectionAttribute> examinationList) {
+        this.examinationList = examinationList;
     }
 
-    public Boolean getBool2() {
-        return bool2;
+    public Boolean getIncCompletedJobs() {
+        return incCompletedJobs;
     }
 
-    public void setBool2(Boolean bool2) {
-        this.bool2 = bool2;
+    public void setIncCompletedJobs(Boolean incCompletedJobs) {
+        this.incCompletedJobs = incCompletedJobs;
     }
 }

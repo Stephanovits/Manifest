@@ -37,6 +37,7 @@
 
                 <div class="row gx-1 gy-1">
                     <div class="col">
+                        <div>Wards:</div>
                         <div th:each ="attribute, itemStat : *{selectionDto.wardList}">
                             <div class="form-check form-switch">
                                 <span th:text="${attribute.attributeName}"></span>
@@ -44,6 +45,10 @@
                                 <input type='hidden' th:field="*{selectionDto.wardList[__${itemStat.index}__].attributeName}">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col">
+                        <div>Examinations:</div>
                     </div>
 
                 </div>

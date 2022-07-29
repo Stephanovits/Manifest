@@ -1,5 +1,7 @@
 package com.manifest.Manifest.service;
 
+import com.manifest.Manifest.dto.SelectionAttribute;
+import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.PatientTransport;
 import com.manifest.Manifest.repository.PatientTransportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,15 +140,19 @@ public class PatientTransportServiceImpl implements PatientTransportService{
     }
 
     @Override
-    public List<PatientTransport> getPatientTransportByCustom(List<String> wards) {
+    public List<PatientTransport> getPatientTransportByCustom(SelectionDto selectionDto) {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<PatientTransport> criteriaQuery = criteriaBuilder.createQuery(PatientTransport.class);
         Root<PatientTransport> root = criteriaQuery.from(PatientTransport.class);
 
+
+
         List<Predicate> wardCriterias = new ArrayList<>();
-        for(String ward: wards) {
-            wardCriterias.add(criteriaBuilder.equal(root.get("patientWard"), ward));
+        for(SelectionAttribute ward: selectionDto.getWardList()) {
+            if (ward.getSelected()){
+                wardCriterias.add(criteriaBuilder.equal(root.get("patientWard"), ward.getAttributeName()));
+            }
         }
 
         Predicate finalPredicate = criteriaBuilder.or(wardCriterias.toArray(new Predicate[wardCriterias.size()]));
