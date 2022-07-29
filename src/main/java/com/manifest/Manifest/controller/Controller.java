@@ -34,22 +34,38 @@ public class Controller {
         wardData.add("W2");
         wardData.add("W3");
 
+        List<String> examData = new ArrayList<>();
+        examData.add("CD");
+        examData.add("MR");
+        examData.add("X-RAY");
+
         if(selectionDto.getWardList() == null){
-            System.out.println("RUNNING INITIAL DTO-SETUP");
-            List<SelectionAttribute> l = new ArrayList<>();
+            System.out.println(">>> RUNNING INITIAL DTO-SETUP");
+            List<SelectionAttribute> l1 = new ArrayList<>();
 
             for(String s: wardData) {
                 SelectionAttribute x = new SelectionAttribute();
                 x.setAttributeName(s);
                 x.setSelected(true);
-                l.add(x);
+                l1.add(x);
             }
-            selectionDto.setWardList(l);
+            selectionDto.setWardList(l1);
+
+            List<SelectionAttribute> l2 = new ArrayList<>();
+
+            for(String s: examData) {
+                SelectionAttribute x = new SelectionAttribute();
+                x.setAttributeName(s);
+                x.setSelected(true);
+                l2.add(x);
+            }
+            selectionDto.setExaminationList(l2);
+
+            selectionDto.setIncCompletedJobs(true);
         }
 
 
-
-        System.out.println(selectionDto);
+        System.out.println( ">>> CURRENT DTO: " + selectionDto);
         model.addAttribute("selectionDto", selectionDto);
         model.addAttribute("listPatientTransport", patientTransportService.getPatientTransportByCustom(selectionDto));
 

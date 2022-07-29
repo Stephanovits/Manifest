@@ -49,6 +49,13 @@
 
                     <div class="col">
                         <div>Examinations:</div>
+                        <div th:each ="attribute, itemStat : *{selectionDto.examinationList}">
+                            <div class="form-check form-switch">
+                                <span th:text="${attribute.attributeName}"></span>
+                                <input class="form-check-input" type="checkbox" th:field="*{selectionDto.wardList[__${itemStat.index}__].selected}">
+                                <input type='hidden' th:field="*{selectionDto.wardList[__${itemStat.index}__].attributeName}">
+                            </div>
+                        </div>
                     </div>
 
                 </div>
