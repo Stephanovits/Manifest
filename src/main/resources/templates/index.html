@@ -33,8 +33,84 @@
         </div>
 
         <div class="container my-3">
+            <form th:action="@{/}">
+
+                <div class="row gx-1 gy-1">
+                    <div class="col">
+                        <div th:each ="attribute, itemStat : *{selectionDto.wardList}">
+                            <div class="form-check form-switch">
+                                <span th:text="${attribute.attributeName}"></span>
+                                <input class="form-check-input" type="checkbox" th:field="*{selectionDto.wardList[__${itemStat.index}__].selected}">
+                                <input type='hidden' th:field="*{selectionDto.wardList[__${itemStat.index}__].attributeName}">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row gx-1 gy-1">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary btn-sm"> view selection </i></button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <!--
+        <form th:action="@{/}">
+            <div class="container my-3">
+                <div class="row gx-1 gy-1">
+
+
+                    <div th:each ="thing, itemStat : *{selectionDto.wardList}">
+                        <div class="form-check form-switch">
+                            Test
+                            <span th:text="${itemStat}"></span>
+                            <input class="form-check-input" type="checkbox" th:field="*{selectionDto.wardList[__${itemStat.index}__]}">
+                            <input type='hidden' value='off' th:field="*{selectionDto.wardList[__${itemStat.index}__]}">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div th:each ="attribute, itemStat : *{selectionDto.wardList}">
+                        <div class="form-check form-switch">
+                            <span th:text="${attribute.attributeName}"></span>
+                            <input class="form-check-input" type="checkbox" th:field="*{selectionDto.wardList[__${itemStat.index}__].selected}">
+                            <input type='hidden' th:field="*{selectionDto.wardList[__${itemStat.index}__].attributeName}">
+                        </div>
+                    </div>
+
+
+
+                    <div th:each ="thing, itemStat : *{selectionDto.wardList}">
+                        Test
+                        <span th:text="${itemStat}"></span>
+                        <input class="form-check-input" type="checkbox" th:field="*{selectionDto.wardList[__${itemStat.index}__]}">
+
+                        <input type='hidden' th:value='on' th:field="*{selectionDto.wardList[__${itemStat.index}__]}">
+                    </div>
+
+
+                </div>
+
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">checkbox test apply</i></button>
+                </div>
+
+            </div>
+        </form>
+        -->
+
+        <div class="container my-3">
             <div class="row gx-1 gy-1">
                 <div class="col">
+                    <tr th:if="${listPatientTransport.empty}">
+                        <td colspan="2"> No Jobs Available </td>
+                    </tr>
                     <div th:each ="patientTransport : ${listPatientTransport}">
                         <table class="table table-bordered">
                             <tr>

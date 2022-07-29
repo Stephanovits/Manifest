@@ -1,12 +1,17 @@
 package com.manifest.Manifest.controller;
 
+import com.manifest.Manifest.dto.SelectionAttribute;
+import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.PatientTransport;
 import com.manifest.Manifest.service.PatientTransportService;
+import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -15,8 +20,45 @@ public class Controller {
     private PatientTransportService patientTransportService;
 
     @GetMapping(value = "/")
-    public String helloWorld(Model model) {
-        model.addAttribute("listPatientTransport", patientTransportService.getAllPatientTransports());
+    public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
+
+        List<String> wardList = new ArrayList<>();
+        for(String key: allParams.keySet()){
+            if(key.contains("wardSelect")){
+                wardList.add(allParams.get(key));
+            }
+        }
+
+        List<String> wardData = new ArrayList<>();
+        wardData.add("W1");
+        wardData.add("W2");
+        wardData.add("W3");
+
+        if(selectionDto.getWardList() == null){
+            System.out.println("RUNNING INITIAL SETUP");
+            List<SelectionAttribute> l = new ArrayList<>();
+
+            for(String s: wardData) {
+                SelectionAttribute x = new SelectionAttribute();
+                x.setAttributeName(s);
+                x.setSelected(true);
+                l.add(x);
+            }
+            selectionDto.setWardList(l);
+        }
+
+        if(selectionDto.getBool1() == null){
+            selectionDto.setBool1(true);
+        }
+        if(selectionDto.getBool2() == null){
+            selectionDto.setBool2(true);
+        }
+
+
+        System.out.println(selectionDto);
+        model.addAttribute("selectionDto", selectionDto);
+        model.addAttribute("listPatientTransport", patientTransportService.getPatientTransportByCustom(wardList));
+
         return "index";
     }
 

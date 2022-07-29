@@ -13,4 +13,5 @@ public interface PatientTransportRepository extends JpaRepository<PatientTranspo
     @Query(value = "SELECT * FROM PATIENT_TRANSPORT WHERE PATIENT_WARD = ?1", nativeQuery = true)
     public List<PatientTransport> getPatientTransportByWard(String ward);
 
+
 }

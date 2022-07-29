@@ -5,6 +5,13 @@ import com.manifest.Manifest.repository.PatientTransportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +20,9 @@ public class PatientTransportServiceImpl implements PatientTransportService{
 
     @Autowired
     private PatientTransportRepository patientTransportRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public PatientTransport savePatientTransport(PatientTransport patientTransport) {
@@ -127,5 +137,25 @@ public class PatientTransportServiceImpl implements PatientTransportService{
         return output;
     }
 
+    @Override
+    public List<PatientTransport> getPatientTransportByCustom(List<String> wards) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<PatientTransport> criteriaQuery = criteriaBuilder.createQuery(PatientTransport.class);
+        Root<PatientTransport> root = criteriaQuery.from(PatientTransport.class);
+
+        List<Predicate> wardCriterias = new ArrayList<>();
+        for(String ward: wards) {
+            wardCriterias.add(criteriaBuilder.equal(root.get("patientWard"), ward));
+        }
+
+        Predicate finalPredicate = criteriaBuilder.or(wardCriterias.toArray(new Predicate[wardCriterias.size()]));
+
+        criteriaQuery.where(finalPredicate);
+
+        List<PatientTransport> result = entityManager.createQuery(criteriaQuery).getResultList();
+        return result;
+
+    }
 
 }
