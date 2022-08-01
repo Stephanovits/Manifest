@@ -89,6 +89,7 @@ public class Controller {
     public String updatePatientTransport(@PathVariable("id") Long jobId, Model model) {
         model.addAttribute("patientTransport", patientTransportService.getPatientTransportById(jobId));
         model.addAttribute("wards", wardService.getAllWards());
+        model.addAttribute("examinations", examinationService.getAllExaminations());
         return "patientTransportUpdateForm";
     }
 
