@@ -55,9 +55,9 @@
                     <div class="mb-3">
                         <label for="examination" class="form-label">Examination:</label>
                         <select class="form-select" aria-label="Default select example" id="examination" th:field="*{examination}" required>
-                            <option value="CD">CD</option>
-                            <option value="MR">MR</option>
-                            <option value="X-ray">X-RAY</option>
+                            <div th:each="exam : ${examinations}">
+                                <option th:value="${exam.examinationName}"> <span th:text="${exam.examinationName}"></span> </option>
+                            </div>
                         </select>
                     </div>
                     <div class="mb-3">
