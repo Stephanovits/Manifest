@@ -2,8 +2,11 @@ package com.manifest.Manifest.controller;
 
 import com.manifest.Manifest.dto.SelectionAttribute;
 import com.manifest.Manifest.dto.SelectionDto;
+import com.manifest.Manifest.model.Examination;
 import com.manifest.Manifest.model.PatientTransport;
 import com.manifest.Manifest.model.Ward;
+import com.manifest.Manifest.repository.ExaminationRepository;
+import com.manifest.Manifest.service.ExaminationService;
 import com.manifest.Manifest.service.PatientTransportService;
 import com.manifest.Manifest.service.WardService;
 import org.hibernate.sql.Select;
@@ -23,6 +26,9 @@ public class Controller {
 
     @Autowired
     private WardService wardService;
+
+    @Autowired
+    private ExaminationService examinationService;
 
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
@@ -138,10 +144,14 @@ public class Controller {
         return "redirect:/";
     }
 
+
+    //ADMIN RELATED CONTROLLER
     @GetMapping(value = "/admin")
     public String admin(Model model) {
         model.addAttribute("wards", wardService.getAllWards());
+        model.addAttribute("examinations", examinationService.getAllExaminations());
         model.addAttribute("ward", new Ward());
+        model.addAttribute("examination", new Examination());
         return "admin";
     }
 
@@ -157,5 +167,17 @@ public class Controller {
         return "redirect:/admin";
     }
 
+
+    @PostMapping(value = "/saveExamination")
+    public String saveExam(@ModelAttribute("examination") Examination examination) {
+        examinationService.saveExamination(examination);
+        return "redirect:/admin";
+    }
+
+    @GetMapping(value = "/deleteExaminationById/{id}")
+    public String deleteExaminationById(@PathVariable("id") Long wardId) {
+        examinationService.deleteExaminationById(wardId);
+        return "redirect:/admin";
+    }
 
 }

@@ -64,6 +64,49 @@
                 </table>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead class="table-light">
+                    <tr>
+                        <td>#</td>
+                        <td>Examinations:</td>
+                        <td>
+                            <form class="row g-0.2" action="#" th:action="@{/saveExamination}" th:object="${examination}" method="POST">
+                                <div class="col-auto">
+                                    <label for="examName" class="visually-hidden">Examination Name</label>
+                                    <input type="text" class="form-control" id="examName"  th:field="*{examinationName}" placeholder="Examination Name" required>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-0.2">create examination </button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <div th:each ="exam, index : ${examinations}">
+                        <tr>
+                            <td> <span th:text="${index.count}"></span> </td>
+                            <td> <span th:text="${exam.examinationName}"></span> </td>
+                            <td>
+                                <a th:href="@{/deleteExaminationById/{id}(id=${exam.examinationId})}"
+                                   class="btn btn-danger btn-sm"
+                                   style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
+                                    Delete </i>
+                                </a>
+                            </td>
+                        </tr>
+                    </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
     </div>
 
 </main>
