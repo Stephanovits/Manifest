@@ -27,17 +27,7 @@ public class Controller {
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
 
-        List<String> wardList = new ArrayList<>();
-        for(String key: allParams.keySet()){
-            if(key.contains("wardSelect")){
-                wardList.add(allParams.get(key));
-            }
-        }
-
-        List<String> wardData = new ArrayList<>();
-        wardData.add("W1");
-        wardData.add("W2");
-        wardData.add("W3");
+        List<Ward> wardData = wardService.getAllWards();
 
         List<String> examData = new ArrayList<>();
         examData.add("CD");
@@ -48,9 +38,9 @@ public class Controller {
             System.out.println(">>> RUNNING INITIAL DTO-SETUP");
             List<SelectionAttribute> l1 = new ArrayList<>();
 
-            for(String s: wardData) {
+            for(Ward w: wardData) {
                 SelectionAttribute x = new SelectionAttribute();
-                x.setAttributeName(s);
+                x.setAttributeName(w.getWardName());
                 x.setSelected(true);
                 l1.add(x);
             }
