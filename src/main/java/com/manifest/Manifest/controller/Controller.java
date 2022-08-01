@@ -83,6 +83,7 @@ public class Controller {
     public String createPatientTransport(Model model) {
         PatientTransport patientTransport = new PatientTransport();
         model.addAttribute("patientTransport", patientTransport);
+        model.addAttribute("wards", wardService.getAllWards());
         return "patientTransportForm";
     }
 
