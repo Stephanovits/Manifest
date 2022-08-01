@@ -35,10 +35,7 @@ public class Controller {
 
         List<Ward> wardData = wardService.getAllWards();
 
-        List<String> examData = new ArrayList<>();
-        examData.add("CD");
-        examData.add("MR");
-        examData.add("X-RAY");
+        List<Examination> examData = examinationService.getAllExaminations();
 
         if(selectionDto.getWardList() == null){
             System.out.println(">>> RUNNING INITIAL DTO-SETUP");
@@ -54,9 +51,9 @@ public class Controller {
 
             List<SelectionAttribute> l2 = new ArrayList<>();
 
-            for(String s: examData) {
+            for(Examination e: examData) {
                 SelectionAttribute x = new SelectionAttribute();
-                x.setAttributeName(s);
+                x.setAttributeName(e.getExaminationName());
                 x.setSelected(true);
                 l2.add(x);
             }
