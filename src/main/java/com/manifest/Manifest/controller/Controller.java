@@ -91,6 +91,7 @@ public class Controller {
     @GetMapping(value = "/updatePatientTransportById/{id}")
     public String updatePatientTransport(@PathVariable("id") Long jobId, Model model) {
         model.addAttribute("patientTransport", patientTransportService.getPatientTransportById(jobId));
+        model.addAttribute("wards", wardService.getAllWards());
         return "patientTransportUpdateForm";
     }
 

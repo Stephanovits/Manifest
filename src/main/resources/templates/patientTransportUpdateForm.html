@@ -48,9 +48,9 @@
                     <div class="mb-3">
                         <label for="patientWard" class="form-label">Ward:</label>
                         <select class="form-select" aria-label="Default select example" id="patientWard" th:field="*{patientWard}" required>
-                            <option value="W1">W1</option>
-                            <option value="W2">W2</option>
-                            <option value="W3">W3</option>
+                            <div th:each="ward : ${wards}">
+                                <option th:value="${ward.wardName}"> <span th:text="${ward.wardName}"></span> </option>
+                            </div>
                         </select>
                     </div>
                     <div class="mb-3">
