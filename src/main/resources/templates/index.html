@@ -25,17 +25,17 @@
 
     <main>
         <div class="container my-3">
-            <div class="row gx-1 gy-1">
+            <div class="row gx-3 gy-3">
                 <div class="col">
                     <a th:href="@{/createPatientTransport}" class="btn btn-primary">New Patient Transport <i class="bi bi-plus-lg"></i></a>
                 </div>
             </div>
         </div>
 
-        <div class="container">
+        <div class="container my-3">
             <div class="row">
                 <form th:action="@{/}">
-                    <div class="row align-items-end g-5">
+                    <div class="row align-items-end g-2">
                         <div class="col">
                             <div>Wards:</div>
                             <div th:each ="attribute, itemStat : *{selectionDto.wardList}">
