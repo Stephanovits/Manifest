@@ -3,7 +3,9 @@ package com.manifest.Manifest.controller;
 import com.manifest.Manifest.dto.SelectionAttribute;
 import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.PatientTransport;
+import com.manifest.Manifest.model.Ward;
 import com.manifest.Manifest.service.PatientTransportService;
+import com.manifest.Manifest.service.WardService;
 import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class Controller {
 
     @Autowired
     private PatientTransportService patientTransportService;
+
+    @Autowired
+    private WardService wardService;
 
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
@@ -140,5 +145,25 @@ public class Controller {
         patientTransportService.savePatientTransport(patientTransportService.revokePatientTransportPhase(patientTransportToRevoke));
         return "redirect:/";
     }
+
+    @GetMapping(value = "/admin")
+    public String admin(Model model) {
+        model.addAttribute("wards", wardService.getAllWards());
+        model.addAttribute("ward", new Ward());
+        return "admin";
+    }
+
+    @PostMapping(value = "/saveWard")
+    public String saveWard(@ModelAttribute("ward") Ward ward) {
+        wardService.saveWard(ward);
+        return "redirect:/admin";
+    }
+
+    @GetMapping(value = "/deleteWardById/{id}")
+    public String deleteWardById(@PathVariable("id") Long wardId) {
+        wardService.deleteWardById(wardId);
+        return "redirect:/admin";
+    }
+
 
 }
