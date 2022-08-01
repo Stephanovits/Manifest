@@ -89,9 +89,9 @@
         <div class="container my-3">
             <div class="row gx-1 gy-1">
                 <div class="col">
-                    <tr th:if="${listPatientTransport.empty}">
-                        <td colspan="2"> No Jobs Available </td>
-                    </tr>
+                    <div th:if="${listPatientTransport.empty}">
+                        <h2 colspan="2"> No Jobs Available <i class="bi bi-clipboard-x-fill"></i></h2>
+                    </div>
                     <div th:each ="patientTransport : ${listPatientTransport}">
                         <table class="table table-bordered">
                             <tr>
