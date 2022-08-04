@@ -199,5 +199,11 @@ public class Controller {
         return "redirect:/admin";
     }
 
+    //Displays patientTransportUpdateFrom
+    @GetMapping(value = "/updateUserById/{id}")
+    public String updateUserById(@PathVariable("id") Long jobId, Model model) {
+        model.addAttribute("user", customUserDetailsService.getUserById(jobId));
+        return "userUpdateForm";
+    }
 
 }

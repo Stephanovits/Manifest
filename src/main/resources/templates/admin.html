@@ -128,7 +128,7 @@
                                 <td> <span th:text="${user.username}"></span> </td>
                                 <td> <span th:text="${user.role}"></span> </td>
                                 <td>
-                                        <a th:href="@{/}"
+                                        <a th:href="@{/updateUserById/{id}(id=${user.userId})}"
                                            class="btn btn-primary btn-sm"
                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
                                             Update <i class="bi bi-pencil"></i>
