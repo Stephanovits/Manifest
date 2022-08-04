@@ -85,7 +85,6 @@ public class Controller {
         model.addAttribute("patientTransport", patientTransport);
         model.addAttribute("wards", wardService.getAllWards());
         model.addAttribute("examinations", examinationService.getAllExaminations());
-        model.addAttribute("users", userDetailsService.getAllUsers());
         return "patientTransportForm";
     }
 
