@@ -28,7 +28,6 @@
         <div class="row gx-1 gy-1">
             <div class="col">
                 <h2>Update User Details</h2>
-                <h4 class="text-secondary">User Id: <span th:text="${user.userId}"></span> </h4>
             </div>
         </div>
     </div>
@@ -37,8 +36,11 @@
         <div class="row gx-1 gy-1">
             <div class="col">
                 <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
-                    <input type="hidden" th:field="*{userId}"/>
                     <input type="hidden" th:field="*{password}"/>
+                    <div class="mb-3">
+                        <label for="patientName" class="form-label">User ID:</label>
+                        <input type="text" class="form-control" id="patientName" th:field="*{userId}" disabled>
+                    </div>
                     <div class="mb-3">
                         <label for="patientName" class="form-label">Name:</label>
                         <input type="text" class="form-control" id="patientName" th:field="*{username}" required>
