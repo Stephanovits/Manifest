@@ -133,7 +133,7 @@
                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
                                             Update <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a th:href="@{/}"
+                                        <a th:href="@{/deleteUserById/{id}(id=${user.userId})}"
                                            class="btn btn-danger btn-sm"
                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
                                             Delete <i class="bi bi-trash3"></i>

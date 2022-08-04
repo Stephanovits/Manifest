@@ -192,4 +192,12 @@ public class Controller {
         customUserDetailsService.saveUser(user);
         return "redirect:/admin";
     }
+
+    @GetMapping(value = "/deleteUserById/{id}")
+    public String saveUser(@PathVariable("id") Long id) {
+        customUserDetailsService.deleteUserById(id);
+        return "redirect:/admin";
+    }
+
+
 }
