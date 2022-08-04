@@ -8,6 +8,7 @@ import com.manifest.Manifest.model.User;
 import com.manifest.Manifest.model.Ward;
 import com.manifest.Manifest.repository.ExaminationRepository;
 import com.manifest.Manifest.repository.UserRepository;
+import com.manifest.Manifest.service.CustomUserDetailsService;
 import com.manifest.Manifest.service.ExaminationService;
 import com.manifest.Manifest.service.PatientTransportService;
 import com.manifest.Manifest.service.WardService;
@@ -34,7 +35,7 @@ public class Controller {
     private ExaminationService examinationService;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
@@ -84,6 +85,7 @@ public class Controller {
         model.addAttribute("patientTransport", patientTransport);
         model.addAttribute("wards", wardService.getAllWards());
         model.addAttribute("examinations", examinationService.getAllExaminations());
+        model.addAttribute("users", userDetailsService.getAllUsers());
         return "patientTransportForm";
     }
 
