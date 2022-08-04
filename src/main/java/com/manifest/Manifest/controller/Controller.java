@@ -4,8 +4,10 @@ import com.manifest.Manifest.dto.SelectionAttribute;
 import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.Examination;
 import com.manifest.Manifest.model.PatientTransport;
+import com.manifest.Manifest.model.User;
 import com.manifest.Manifest.model.Ward;
 import com.manifest.Manifest.repository.ExaminationRepository;
+import com.manifest.Manifest.repository.UserRepository;
 import com.manifest.Manifest.service.ExaminationService;
 import com.manifest.Manifest.service.PatientTransportService;
 import com.manifest.Manifest.service.WardService;
@@ -29,6 +31,9 @@ public class Controller {
 
     @Autowired
     private ExaminationService examinationService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
@@ -179,4 +184,9 @@ public class Controller {
         return "redirect:/admin";
     }
 
+    @PostMapping(value = "/saveUser")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userRepository.save(user);
+        return "redirect:/admin";
+    }
 }
