@@ -13,6 +13,7 @@ import com.manifest.Manifest.service.PatientTransportService;
 import com.manifest.Manifest.service.WardService;
 import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class Controller {
     private ExaminationService examinationService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDetailsService userDetailsService;
 
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
@@ -171,7 +172,6 @@ public class Controller {
         return "redirect:/admin";
     }
 
-
     @PostMapping(value = "/saveExamination")
     public String saveExam(@ModelAttribute("examination") Examination examination) {
         examinationService.saveExamination(examination);
@@ -184,9 +184,9 @@ public class Controller {
         return "redirect:/admin";
     }
 
+
     @PostMapping(value = "/saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
-        userRepository.save(user);
         return "redirect:/admin";
     }
 }
