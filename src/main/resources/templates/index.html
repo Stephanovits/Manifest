@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Manifest</title>
@@ -17,12 +17,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-0 mb-lg-0">
+                        <span sec:authorize="hasAuthority('ADMIN')">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/admin}">Admin</a>
+                            </li>
+                        </span>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/logout}">Log Out</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/admin}">Admin</a>
-                        </li>
+                        <span sec:authorize="isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link disabled">Logged in as: <span sec:authentication="name"></span> </a>
+                            </li>
+                        </span>
                     </ul>
                 </div>
             </div>
