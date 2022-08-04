@@ -206,14 +206,9 @@ public class Controller {
         return "userUpdateForm";
     }
 
-    @GetMapping(value = "/login*")
+    @GetMapping(value = "/login")
     public String login(){
         return "login";
-    }
-
-    @GetMapping(value = "/error")
-    public String wrongCredentials(){
-        return "test";
     }
 
     @GetMapping(value = "/logout")
