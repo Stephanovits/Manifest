@@ -103,6 +103,76 @@
             </div>
         </div>
     </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <table class="table border">
+                    <thead class="table-light">
+                        <tr>
+                            <td colspan="5">USERS:</td>
+                        </tr>
+                        <tr>
+                            <td>#</td>
+                            <td>ID:</td>
+                            <td>Name:</td>
+                            <td>Role:</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div th:each ="user, index : ${users}">
+                            <tr>
+                                <td> <span th:text="${index.count}"></span> </td>
+                                <td> <span th:text="${user.userId}"></span> </td>
+                                <td> <span th:text="${user.username}"></span> </td>
+                                <td> <span th:text="${user.role}"></span> </td>
+                                <td>
+                                        <a th:href="@{/}"
+                                           class="btn btn-primary btn-sm"
+                                           style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
+                                            Update <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a th:href="@{/}"
+                                           class="btn btn-danger btn-sm"
+                                           style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
+                                            Delete <i class="bi bi-trash3"></i>
+                                        </a>
+                                </td>
+                            </tr>
+                        </div>
+                        <tr class="table-light">
+                            <td colspan="5">
+                                <form class="row row-cols-lg-auto g-1 align-items-center" action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
+                                    <div class="col-3">
+                                        <label class="visually-hidden" for="username">Username</label>
+                                        <input type="text" class="form-control form-control-sm" id="username" th:field="*{username}" placeholder="Username" required>
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="visually-hidden" for="role">Role</label>
+                                        <select class="form-select form-select-sm" id="role" th:field="*{role}" required>
+                                            <option value="WORKER">WORKER</option>
+                                            <option value="WARD">WARD</option>
+                                            <option value="ADMIN">ADMIN</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label class="visually-hidden" for="password">Password</label>
+                                        <input type="text" class="form-control form-control-sm" id="password" th:field="*{password}" placeholder="Password" requuired>
+                                    </div>
+
+                                    <div class="col" align="right">
+                                        <button type="submit" class="btn btn-primary btn-sm">create user <i class="bi bi-plus-lg"></i></button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <footer class="footer mt-auto py-3 bg-dark align-items-end">

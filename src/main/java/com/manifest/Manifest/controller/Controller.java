@@ -35,7 +35,7 @@ public class Controller {
     private ExaminationService examinationService;
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping(value = "/")
     public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
@@ -156,6 +156,8 @@ public class Controller {
     public String admin(Model model) {
         model.addAttribute("wards", wardService.getAllWards());
         model.addAttribute("examinations", examinationService.getAllExaminations());
+        model.addAttribute("users", customUserDetailsService.getAllUsers());
+        model.addAttribute("user", new User());
         model.addAttribute("ward", new Ward());
         model.addAttribute("examination", new Examination());
         return "admin";
@@ -185,9 +187,9 @@ public class Controller {
         return "redirect:/admin";
     }
 
-
     @PostMapping(value = "/saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
+        customUserDetailsService.saveUser(user);
         return "redirect:/admin";
     }
 }
