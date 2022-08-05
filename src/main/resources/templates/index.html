@@ -111,6 +111,11 @@
                     </div>
                     <div th:each ="patientTransport : ${listPatientTransport}">
                         <table class="table table-bordered">
+                            <div th:if="${patientTransport.type == 'EMERGENCY'}">
+                                <tr>
+                                    <td colspan="3"> <span th:text="${patientTransport.type}"></span> </td>
+                                </tr>
+                            </div>
                             <tr>
                                 <td colspan="2"> <span th:text="${patientTransport.examination}"></span> </td>
                                 <td rowspan="3">
