@@ -180,10 +180,10 @@ public class PatientTransportServiceImpl implements PatientTransportService{
 
         //sorting final list
         if(selectionDto.getSort() == SelectionDto.Sort.WARD) {
-            result.sort(Comparator.comparing(PatientTransport::getPatientWard));
+            result.sort(Comparator.comparing(PatientTransport::getType).thenComparing(PatientTransport::getPatientWard));
         }
         else if (selectionDto.getSort() == SelectionDto.Sort.EXAMINATION) {
-            result.sort(Comparator.comparing(PatientTransport::getExamination));
+            result.sort(Comparator.comparing(PatientTransport::getType).thenComparing(PatientTransport::getExamination));
         }
 
         return result;
