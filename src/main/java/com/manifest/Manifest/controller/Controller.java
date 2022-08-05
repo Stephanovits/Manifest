@@ -211,9 +211,10 @@ public class Controller {
         return "login";
     }
 
+
     @GetMapping(value = "/logout")
     public String logout(){
-        return "redirect:/login/?logout";
+        return "/logout";
     }
 
 }
