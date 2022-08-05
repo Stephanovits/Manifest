@@ -217,4 +217,8 @@ public class Controller {
         return "/logout";
     }
 
+    @GetMapping(value = "/accessDenied")
+    public String accessDenied(){
+        return "/accessDenied";
+    }
 }
