@@ -38,7 +38,7 @@ public class Controller {
     private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping(value = "/")
-    public String helloWorld(Model model, @RequestParam Map<String,String> allParams, SelectionDto selectionDto) {
+    public String index(Model model, SelectionDto selectionDto) {
 
         List<Ward> wardData = wardService.getAllWards();
 
