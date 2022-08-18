@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,23 @@ public class CustomUserDetailsServiceTest {
         //then
         assertEquals(actual.getUsername(), expected.getUsername());
     }
+
+    @Test
+    void loadUserByUsernameTest_NEGATIVE(){
+        //given
+        Mockito.when(userRepository.findByUsername("Test User 100")).thenReturn(null);
+        //when
+        //then
+        assertThrows(UsernameNotFoundException.class, () -> {
+            customUserDetailsService.loadUserByUsername("Test User 100");
+        });
+
+
+
+
+    }
+
+
 
     @Test
     void getAllUsersTest(){
