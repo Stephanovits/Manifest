@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -76,6 +77,18 @@ public class CustomUserDetailsServiceTest {
         //then
         assertEquals(expected.getUsername(), actual.getUsername());
     }
+
+    @Test
+    void getUserByIdTest(){
+        //given
+        Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
+        User expected = testUser;
+        //when
+        User actual = customUserDetailsService.getUserById(1L);
+        //then
+        assertEquals(actual, expected);
+    }
+
 
     @Test
     void l(){
