@@ -10,12 +10,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class CustomUserDetailsServiceTest {
 
     User testUser;
+    User testUser2;
 
     @BeforeEach
     void setUp() {
@@ -23,6 +27,11 @@ public class CustomUserDetailsServiceTest {
         testUser.setUsername("Test User 1");
         testUser.setPassword("Password123");
         testUser.setRole("ADMIN");
+
+        testUser2 = new User();
+        testUser2.setUsername("Test User 2");
+        testUser2.setPassword("PasswordABC");
+        testUser2.setRole("WORKER");
     }
 
     @Autowired
@@ -43,13 +52,18 @@ public class CustomUserDetailsServiceTest {
     }
 
     @Test
-    void l(){
+    void getAllUsersTest(){
         //given
-
+        List<User> expected = new ArrayList<>();
+        expected.add(testUser);
+        expected.add(testUser2);
+        Mockito.when(userRepository.findAll()).thenReturn(expected);
         //when
-
+        List<User> actual = new ArrayList<>();
+        actual.add(testUser);
+        actual.add(testUser2);
         //then
-
+        assertEquals(expected.size(), actual.size());
     }
 
     @Test
@@ -63,6 +77,15 @@ public class CustomUserDetailsServiceTest {
         assertEquals(expected.getUsername(), actual.getUsername());
     }
 
+    @Test
+    void l(){
+        //given
+
+        //when
+
+        //then
+
+    }
 
 }
 
