@@ -8,6 +8,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +40,27 @@ public class CustomUserDetailsTest {
         assertEquals(expected.size(), actual.size());
     }
 
+    @Test
+    void getPasswordTest(){
+        //given
+        CustomUserDetails cud = new CustomUserDetails(testUser);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //when
+        String actual = cud.getPassword();
+        String expected = "Password123";
+        //then
+        assertTrue(encoder.matches(expected, actual));
+    }
+
+    @Test
+    void g(){
+        //given
+
+        //when
+
+        //then
+
+    }
 
 }
 
