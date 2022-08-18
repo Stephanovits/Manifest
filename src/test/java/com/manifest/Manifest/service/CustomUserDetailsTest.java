@@ -1,10 +1,8 @@
 package com.manifest.Manifest.service;
 
 import com.manifest.Manifest.model.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -61,16 +59,6 @@ public class CustomUserDetailsTest {
         String expected = "Test User 1";
         //then
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void g(){
-        //given
-
-        //when
-
-        //then
-
     }
 
 }
