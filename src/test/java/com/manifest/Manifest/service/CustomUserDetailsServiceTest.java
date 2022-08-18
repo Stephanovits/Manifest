@@ -89,15 +89,12 @@ public class CustomUserDetailsServiceTest {
         assertEquals(actual, expected);
     }
 
-
     @Test
-    void l(){
-        //given
-
+    void deleteUserByIdTest(){
         //when
-
+        customUserDetailsService.deleteUserById(1L);
         //then
-
+        Mockito.verify(userRepository).deleteById(1L);
     }
 
 }
