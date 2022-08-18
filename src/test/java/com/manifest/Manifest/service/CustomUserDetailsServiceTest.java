@@ -49,6 +49,18 @@ public class CustomUserDetailsServiceTest {
         //when
 
         //then
+
+    }
+
+    @Test
+    void saveUserTest() {
+        //given
+        Mockito.when(userRepository.save(testUser)).thenReturn(testUser);
+        //when
+        User expected = testUser;
+        User actual = customUserDetailsService.saveUser(testUser);
+        //then
+        assertEquals(expected.getUsername(), actual.getUsername());
     }
 
 
