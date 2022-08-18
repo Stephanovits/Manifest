@@ -70,7 +70,6 @@ public class Controller {
             selectionDto.setSort(SelectionDto.Sort.WARD);
         }
 
-
         System.out.println( ">>> CURRENT DTO: " + selectionDto);
         model.addAttribute("selectionDto", selectionDto);
         model.addAttribute("listPatientTransport", patientTransportService.getPatientTransportByCustom(selectionDto));
