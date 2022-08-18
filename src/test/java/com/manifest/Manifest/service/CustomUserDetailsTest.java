@@ -53,6 +53,17 @@ public class CustomUserDetailsTest {
     }
 
     @Test
+    void getUsernameTest(){
+        //given
+        CustomUserDetails cud = new CustomUserDetails(testUser);
+        //when
+        String actual = cud.getUsername();
+        String expected = "Test User 1";
+        //then
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void g(){
         //given
 
