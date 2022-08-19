@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +37,7 @@ public class WardServiceTest {
     }
 
     @Test
-    void getWardById(){
+    void getWardByIdTest(){
         //GIVEN
         Ward testWard = new Ward();
         testWard.setWardName("W1");
@@ -47,6 +49,30 @@ public class WardServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void getAllWardsTest(){
+        //GIVEN
+        Ward testWard = new Ward();
+        testWard.setWardName("W1");
+        Ward testWard2 = new Ward();
+        testWard2.setWardName("W2");
 
+        List<Ward> expected = new ArrayList<>();
+        expected.add(testWard2);
+        expected.add(testWard);
+
+        //WHEN
+        Mockito.when(wardRepository.findAll()).thenReturn(expected);
+
+        //THEN
+        List<Ward> actual = wardService.getAllWards();
+        assertEquals(actual.get(0).getWardName(), "W1"); // checking for correct sorted output
+        assertEquals(actual.get(1).getWardName(), "W2"); // checking for correct sorted output
+    }
+
+    @Test
+    void deleteWardByIdTest(){
+
+    }
 
 }
