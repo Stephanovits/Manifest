@@ -72,7 +72,8 @@ public class WardServiceTest {
 
     @Test
     void deleteWardByIdTest(){
-
+        wardService.deleteWardById(1L);
+        Mockito.verify(wardRepository).deleteById(1L);
     }
 
 }
