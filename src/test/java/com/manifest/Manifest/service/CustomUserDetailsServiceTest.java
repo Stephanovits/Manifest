@@ -55,20 +55,13 @@ public class CustomUserDetailsServiceTest {
 
     @Test
     void loadUserByUsernameTest_NEGATIVE(){
-        //given
-        Mockito.when(userRepository.findByUsername("Test User 100")).thenReturn(null);
         //when
+        Mockito.when(userRepository.findByUsername("Test User 100")).thenReturn(null);
         //then
         assertThrows(UsernameNotFoundException.class, () -> {
             customUserDetailsService.loadUserByUsername("Test User 100");
         });
-
-
-
-
     }
-
-
 
     @Test
     void getAllUsersTest(){
