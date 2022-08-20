@@ -3,8 +3,14 @@ package com.manifest.Manifest.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.manifest.Manifest.configuration.SecurityConfiguration;
+import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.PatientTransport;
+import com.manifest.Manifest.service.CustomUserDetailsService;
+import com.manifest.Manifest.service.ExaminationService;
 import com.manifest.Manifest.service.PatientTransportService;
+import com.manifest.Manifest.service.WardService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +19,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.parameters.P;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MockMvcBuilder;
@@ -31,6 +45,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @WebMvcTest(Controller.class)
+@Import(Controller.class)
+//@Import(ControllerTest.Config.class)
 class ControllerTest {
 
     @Autowired
@@ -38,6 +54,25 @@ class ControllerTest {
 
     @MockBean
     private PatientTransportService patientTransportService;
+
+    @MockBean
+    private CustomUserDetailsService customUserDetailsService;
+
+    @MockBean
+    private WardService wardService;
+
+    @MockBean
+    private ExaminationService examinationService;
+
+    @Configuration
+    @EnableWebSecurity
+    static class Config extends WebSecurityConfigurerAdapter {
+        @Autowired
+        public void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.inMemoryAuthentication().withUser("user").password("123").authorities("USER");
+            auth.inMemoryAuthentication().withUser("admin").password("123").authorities("ADMIN");
+        }
+    }
 
     @BeforeEach
     void setUp() {
@@ -52,8 +87,31 @@ class ControllerTest {
         assertEquals("Welcome to Manifest", result.getResponse().getContentAsString());
     }
 
+    @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void indexTest() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders.get("/");
+
+        PatientTransport pt1 = new PatientTransport(1L, "Patient Name 1", "W1", "444", "CD", "ROUTINE");
+        PatientTransport pt2 = new PatientTransport(2L, "Patient Name 2", "W2", "666", "MR", "EMERGENCY");
+        List<PatientTransport> l1 = new ArrayList<>();
+        l1.add(pt1);
+        l1.add(pt2);
+
+        Mockito.when(patientTransportService.getPatientTransportByCustom(Mockito.any(SelectionDto.class))).thenReturn(l1);
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("index"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("selectionDto"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("listPatientTransport"))
+                .andExpect(MockMvcResultMatchers.model().attribute("listPatientTransport", Matchers.equalTo(l1)));
+    }
+
+
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
     void savePatientTransportTEST() throws Exception {
         PatientTransport patientTransport = new PatientTransport();
         patientTransport.setPatientName("Huber");
@@ -78,14 +136,16 @@ class ControllerTest {
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/savePatientTransport")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(exampleJson);
+                .content(exampleJson)
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
 
         mockMvc.perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.patientName").value(pt2.getPatientName()));
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
     }
 
     @Test
+    @WithMockUser(username="Admin", password="123", roles={"ADMIN"})
     void getPatientTransportByIdTEST() throws Exception {
 
         PatientTransport pt2 = new PatientTransport();
@@ -173,10 +233,10 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="Admin", password="123", authorities={"ADMIN"})
     void deletePatientTransportByIdTEST() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/deletePatientTransportById/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Patient Transport Job with patientId 1 successfully deleted."));
+        mockMvc.perform(MockMvcRequestBuilders.get("/deletePatientTransportById/1"))
+                .andExpect(MockMvcResultMatchers.status().is(302));
     }
 
     @Test
@@ -215,4 +275,13 @@ class ControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.patientRoom").value(pt2.getPatientRoom()));
     }
+
+    @Test
+    void loginTEST() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
+
 }
