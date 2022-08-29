@@ -509,7 +509,7 @@ class ControllerTest {
 
     @Test
     @WithMockUser(username="admin", password="123", roles={"ADMIN"})
-    void updateUserTEST() throws Exception {
+    void updateUserByIdTEST() throws Exception {
         User u1 = new User();
         u1.setUsername("Thomas");
         u1.setPassword("123");
