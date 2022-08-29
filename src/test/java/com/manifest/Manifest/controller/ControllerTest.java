@@ -7,6 +7,7 @@ import com.manifest.Manifest.configuration.SecurityConfiguration;
 import com.manifest.Manifest.dto.SelectionDto;
 import com.manifest.Manifest.model.Examination;
 import com.manifest.Manifest.model.PatientTransport;
+import com.manifest.Manifest.model.User;
 import com.manifest.Manifest.model.Ward;
 import com.manifest.Manifest.service.CustomUserDetailsService;
 import com.manifest.Manifest.service.ExaminationService;
@@ -369,10 +370,70 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void adminTEST() throws Exception {
+        Ward w1 = new Ward();
+        w1.setWardName("W1");
+        w1.setWardId(1L);
+        Ward w2 = new Ward();
+        w2.setWardName("W2");
+        w2.setWardId(2L);
+
+        List<Ward> wl = new ArrayList<>();
+        wl.add(w1);
+        wl.add(w2);
+
+        Examination e1 =new Examination();
+        e1.setExaminationName("CD");
+        e1.setExaminationId(1L);
+        Examination e2 = new Examination();
+        e2.setExaminationName("MR");
+        e2.setExaminationId(2L);
+
+        List<Examination> el = new ArrayList<>();
+        el.add(e1);
+        el.add(e2);
+
+        User u1 = new User();
+        u1.setUsername("Thomas");
+        u1.setRole("WORKER");
+        u1.setUserId(1L);
+        u1.setPassword("123");
+        User u2 = new User();
+        u2.setUsername("Alex");
+        u2.setRole("ADMIN");
+        u2.setUserId(2L);
+        u2.setPassword("123");
+
+        List<User> ul = new ArrayList<>();
+        ul.add(u1);
+        ul.add(u2);
+
+        Mockito.when(wardService.getAllWards()).thenReturn(wl);
+        Mockito.when(examinationService.getAllExaminations()).thenReturn(el);
+        Mockito.when(customUserDetailsService.getAllUsers()).thenReturn(ul);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/admin"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("admin"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("wards"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("examinations"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("users"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("user"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("ward"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("examination"))
+                .andExpect(MockMvcResultMatchers.model().attribute("wards", Matchers.equalTo(wl)))
+                .andExpect(MockMvcResultMatchers.model().attribute("examinations", Matchers.equalTo(el)))
+                .andExpect(MockMvcResultMatchers.model().attribute("users", Matchers.equalTo(ul)));
+    }
+
+    @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+
 
 
 
