@@ -525,14 +525,23 @@ class ControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("user", Matchers.equalTo(u1)));
     }
 
-
-
     @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    void logoutTEST() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/logout"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void accessDeniedTEST() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
 
 
