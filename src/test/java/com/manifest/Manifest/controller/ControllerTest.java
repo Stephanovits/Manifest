@@ -298,6 +298,46 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void createPatientTransportTEST() throws Exception {
+        PatientTransport pt1 = new PatientTransport();
+
+        Ward w1 = new Ward();
+        w1.setWardName("W1");
+        w1.setWardId(1L);
+        Ward w2 = new Ward();
+        w2.setWardName("W2");
+        w2.setWardId(2L);
+
+        List<Ward> wl = new ArrayList<>();
+        wl.add(w1);
+        wl.add(w2);
+
+        Examination e1 =new Examination();
+        e1.setExaminationName("CD");
+        e1.setExaminationId(1L);
+        Examination e2 = new Examination();
+        e2.setExaminationName("MR");
+        e2.setExaminationId(2L);
+
+        List<Examination> el = new ArrayList<>();
+        el.add(e1);
+        el.add(e2);
+
+        Mockito.when(wardService.getAllWards()).thenReturn(wl);
+        Mockito.when(examinationService.getAllExaminations()).thenReturn(el);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/createPatientTransport"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("patientTransportForm"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("patientTransport"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("wards"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("examinations"))
+                .andExpect(MockMvcResultMatchers.model().attribute("wards", Matchers.equalTo(wl)))
+                .andExpect(MockMvcResultMatchers.model().attribute("examinations", Matchers.equalTo(el)));
+    }
+
+    @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
