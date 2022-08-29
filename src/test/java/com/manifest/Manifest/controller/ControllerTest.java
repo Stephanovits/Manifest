@@ -291,7 +291,9 @@ class ControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("patientTransport"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("wards"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("examinations"))
-                .andExpect(MockMvcResultMatchers.model().attribute("patientTransport", Matchers.equalTo(pt1)));
+                .andExpect(MockMvcResultMatchers.model().attribute("patientTransport", Matchers.equalTo(pt1)))
+                .andExpect(MockMvcResultMatchers.model().attribute("wards", Matchers.equalTo(wl)))
+                .andExpect(MockMvcResultMatchers.model().attribute("examinations", Matchers.equalTo(el)));
 
     }
 
