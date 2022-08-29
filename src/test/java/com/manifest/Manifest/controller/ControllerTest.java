@@ -520,9 +520,12 @@ class ControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/updateUserById/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("userUpdateForm"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("user"))
                 .andExpect(MockMvcResultMatchers.model().attribute("user", Matchers.equalTo(u1)));
     }
+
+
 
     @Test
     void loginTEST() throws Exception {
