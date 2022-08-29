@@ -456,6 +456,20 @@ class ControllerTest {
     }
 
 
+    @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void saveExamTEST() throws Exception {
+
+        RequestBuilder request = MockMvcRequestBuilders.post("/saveExamination")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"examinationName\":\"CD\",\"examinationId\":\"1\"}")
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(examinationService).saveExamination(Mockito.any(Examination.class));
+    }
 
     @Test
     void loginTEST() throws Exception {
