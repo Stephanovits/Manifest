@@ -104,31 +104,10 @@ public class Controller {
 
     }
 
-    @GetMapping(value = "/getPatientTransportById/{id}")
-    public PatientTransport getPatientTransportById(@PathVariable("id") Long jobId){
-        return patientTransportService.getPatientTransportById(jobId);
-    }
-
-    @GetMapping(value = "/getAllPatientTransports")
-    public List<PatientTransport> getAllPatientTransports() {
-        return patientTransportService.getAllPatientTransports();
-    }
-
-    @GetMapping(value = "/getPatientTransportsByWard/{ward}")
-    public List<PatientTransport> getPatientTransportsByWard(@PathVariable("ward") String ward) {
-        return patientTransportService.getPatientTransportByWard(ward);
-    }
-
     @GetMapping("/deletePatientTransportById/{id}")
     public String deletePatientTransportById(@PathVariable("id") Long jobId){
         patientTransportService.deletePatientTransportById(jobId);
         return "redirect:/";
-    }
-
-    @DeleteMapping(value = "/deleteAllPatientTransports")
-    public String deleteAllPatientTransports(){
-        patientTransportService.deleteAllPatientTransports();
-        return "All Patient Transport Jobs successfully deleted.";
     }
 
     //Moves the status of a PatientTransport to next pahse
@@ -208,7 +187,6 @@ public class Controller {
     public String login(){
         return "login";
     }
-
 
     @GetMapping(value = "/logout")
     public String logout(){
