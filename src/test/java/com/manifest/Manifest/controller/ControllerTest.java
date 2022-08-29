@@ -428,6 +428,26 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void saveWardTEST() throws Exception {
+        Ward w1 = new Ward();
+        w1.setWardName("W1");
+        w1.setWardId(1L);
+
+        RequestBuilder request = MockMvcRequestBuilders.post("/saveWard")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"wardName\":\"W1\",\"wardId\":\"1\"}")
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(wardService).saveWard(Mockito.any(Ward.class));
+    }
+
+
+
+    @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
