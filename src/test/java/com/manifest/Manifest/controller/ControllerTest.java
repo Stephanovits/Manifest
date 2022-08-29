@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.manifest.Manifest.configuration.SecurityConfiguration;
 import com.manifest.Manifest.dto.SelectionDto;
+import com.manifest.Manifest.model.Examination;
 import com.manifest.Manifest.model.PatientTransport;
+import com.manifest.Manifest.model.Ward;
 import com.manifest.Manifest.service.CustomUserDetailsService;
 import com.manifest.Manifest.service.ExaminationService;
 import com.manifest.Manifest.service.PatientTransportService;
@@ -246,9 +248,10 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
     void updatePatientTransportByIdTEST() throws Exception {
         PatientTransport pt1 = new PatientTransport();
-        pt1.setJobId(Integer.toUnsignedLong(1));
+        pt1.setJobId(1L);
         pt1.setPatientName("Huber");
         pt1.setPatientWard("W1");
         pt1.setPatientRoom("000");
@@ -256,24 +259,40 @@ class ControllerTest {
         pt1.setStatus("Waiting");
         pt1.setType("Routine");
 
-        PatientTransport pt2 = new PatientTransport();
-        pt2.setJobId(Integer.toUnsignedLong(1));
-        pt2.setPatientName("Huber");
-        pt2.setPatientWard("W1");
-        pt2.setPatientRoom("999");
-        pt2.setExamination("CD");
-        pt2.setStatus("Waiting");
-        pt2.setType("Routine");
+        Ward w1 = new Ward();
+        w1.setWardName("W1");
+        w1.setWardId(1L);
+        Ward w2 = new Ward();
+        w2.setWardName("W2");
+        w2.setWardId(2L);
 
-        String exampleJson = "{\"patientName\":\"Huber\",\"patientWard\":\"W1\",\"patientRoom\":\"000\",\"examination\":\"CD\",\"status\":\"Waiting\",\"type\":\"Routine\"}";
+        List<Ward> wl = new ArrayList<>();
+        wl.add(w1);
+        wl.add(w2);
 
-        Mockito.when(patientTransportService.updatePatientTransportById(Mockito.any(Long.class), Mockito.any(PatientTransport.class))).thenReturn(pt2);
+        Examination e1 =new Examination();
+        e1.setExaminationName("CD");
+        e1.setExaminationId(1L);
+        Examination e2 = new Examination();
+        e2.setExaminationName("MR");
+        e2.setExaminationId(2L);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/updatePatientTransportById/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(exampleJson))
+        List<Examination> el = new ArrayList<>();
+        el.add(e1);
+        el.add(e2);
+
+        Mockito.when(patientTransportService.getPatientTransportById(Mockito.any(Long.class))).thenReturn(pt1);
+        Mockito.when(wardService.getAllWards()).thenReturn(wl);
+        Mockito.when(examinationService.getAllExaminations()).thenReturn(el);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/updatePatientTransportById/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.patientRoom").value(pt2.getPatientRoom()));
+                .andExpect(MockMvcResultMatchers.view().name("patientTransportUpdateForm"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("patientTransport"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("wards"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("examinations"))
+                .andExpect(MockMvcResultMatchers.model().attribute("patientTransport", Matchers.equalTo(pt1)));
+
     }
 
     @Test
