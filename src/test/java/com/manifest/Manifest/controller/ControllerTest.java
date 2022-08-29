@@ -482,6 +482,21 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void saveUserTEST() throws Exception {
+
+        RequestBuilder request = MockMvcRequestBuilders.post("/saveUser")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"username\":\"Thomas\",\"userId\":\"1\",\"password\":\"123\",\"role\":\"WORKER\"}")
+                .with(SecurityMockMvcRequestPostProcessors.csrf());
+
+        mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(customUserDetailsService).saveUser(Mockito.any(User.class));
+    }
+
+    @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
