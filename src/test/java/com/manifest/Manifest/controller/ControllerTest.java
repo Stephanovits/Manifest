@@ -445,6 +445,16 @@ class ControllerTest {
         Mockito.verify(wardService).saveWard(Mockito.any(Ward.class));
     }
 
+    @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void deleteWardByIdTEST() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/deleteWardById/1"))
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(wardService).deleteWardById(Mockito.any(Long.class));
+    }
+
 
 
     @Test
