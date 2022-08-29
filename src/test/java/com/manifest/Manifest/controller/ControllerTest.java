@@ -472,6 +472,16 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void deleteExaminationByIdTEST() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/deleteExaminationById/1"))
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(examinationService).deleteExaminationById(Mockito.any(Long.class));
+    }
+
+    @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
