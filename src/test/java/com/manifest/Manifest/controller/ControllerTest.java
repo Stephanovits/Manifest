@@ -17,6 +17,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -494,6 +495,33 @@ class ControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is(302));
 
         Mockito.verify(customUserDetailsService).saveUser(Mockito.any(User.class));
+    }
+
+    @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void deleteUserTEST() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/deleteUserById/1"))
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(customUserDetailsService).deleteUserById(Mockito.any(Long.class));
+    }
+
+    @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void updateUserTEST() throws Exception {
+        User u1 = new User();
+        u1.setUsername("Thomas");
+        u1.setPassword("123");
+        u1.setUserId(1L);
+        u1.setRole("WORKER");
+
+        Mockito.when(customUserDetailsService.getUserById(Mockito.any(Long.class))).thenReturn(u1);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/updateUserById/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("user"))
+                .andExpect(MockMvcResultMatchers.model().attribute("user", Matchers.equalTo(u1)));
     }
 
     @Test
