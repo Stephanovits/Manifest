@@ -338,6 +338,23 @@ class ControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin", password="123", roles={"ADMIN"})
+    void movePatientTransportPhaseTEST() throws Exception {
+        PatientTransport pt1 = new PatientTransport();
+
+        Mockito.when(patientTransportService.getPatientTransportById(Mockito.any(Long.class))).thenReturn(pt1);
+        Mockito.when(patientTransportService.movePatientTransportPhase(Mockito.any(PatientTransport.class))).thenReturn(pt1);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/movePatientTransportPhase/1"))
+                .andExpect(MockMvcResultMatchers.status().is(302));
+
+        Mockito.verify(patientTransportService).getPatientTransportById(1L);
+        Mockito.verify(patientTransportService).savePatientTransport(Mockito.any(PatientTransport.class));
+    }
+
+
+
+    @Test
     void loginTEST() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
