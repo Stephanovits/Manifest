@@ -113,28 +113,23 @@ public class Controller {
         return "redirect:/";
     }
 
-    //Moves the status of a PatientTransport to next pahse
+    //Moves the status of a PatientTransport to next phase
     @GetMapping(value = "/movePatientTransportPhase/{id}")
     public ModelAndView movePatientTransportPhase(@PathVariable("id") Long jobId, SelectionDto selectionDto, ModelMap model) {
         PatientTransport patientTransportToMove = patientTransportService.getPatientTransportById(jobId);
-        System.out.println(">>> JOB TO MOVE:");
-        System.out.println(patientTransportToMove.getJobId());
-
-        System.out.println(">>> USED DTO:");
-        System.out.println(selectionDto);
-
         patientTransportService.savePatientTransport(patientTransportService.movePatientTransportPhase(patientTransportToMove));
 
         model.addAttribute("selectionDto", selectionDto);
-
         return new ModelAndView("forward:/", model);
     }
 
     @GetMapping(value = "/revokePatientTransportPhase/{id}")
-    public String revokePatientTransportPhase(@PathVariable("id") Long jobId) {
+    public ModelAndView revokePatientTransportPhase(@PathVariable("id") Long jobId, SelectionDto selectionDto, ModelMap model) {
         PatientTransport patientTransportToRevoke = patientTransportService.getPatientTransportById(jobId);
         patientTransportService.savePatientTransport(patientTransportService.revokePatientTransportPhase(patientTransportToRevoke));
-        return "redirect:/";
+
+        model.addAttribute("selectionDto", selectionDto);
+        return new ModelAndView("forward:/", model);
     }
 
 
