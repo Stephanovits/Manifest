@@ -16,7 +16,10 @@ import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,12 +115,19 @@ public class Controller {
 
     //Moves the status of a PatientTransport to next pahse
     @GetMapping(value = "/movePatientTransportPhase/{id}")
-    public String movePatientTransportPhase(@PathVariable("id") Long jobId) {
+    public ModelAndView movePatientTransportPhase(@PathVariable("id") Long jobId, SelectionDto selectionDto, ModelMap model) {
         PatientTransport patientTransportToMove = patientTransportService.getPatientTransportById(jobId);
+        System.out.println(">>> JOB TO MOVE:");
         System.out.println(patientTransportToMove.getJobId());
 
+        System.out.println(">>> USED DTO:");
+        System.out.println(selectionDto);
+
         patientTransportService.savePatientTransport(patientTransportService.movePatientTransportPhase(patientTransportToMove));
-        return "redirect:/";
+
+        model.addAttribute("selectionDto", selectionDto);
+
+        return new ModelAndView("forward:/", model);
     }
 
     @GetMapping(value = "/revokePatientTransportPhase/{id}")

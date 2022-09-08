@@ -134,11 +134,31 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a th:href="@{/movePatientTransportPhase/{id}(id=${patientTransport.jobId})}"
-                                       class="btn btn-success btn-sm"
-                                       style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
-                                        Move Phase <i class="bi bi-arrow-clockwise"></i>
-                                    </a>
+                                    <form th:action="@{/movePatientTransportPhase/{id}(id=${patientTransport.jobId})}">
+                                        <a th:each ="attribute, itemStat : *{selectionDto.wardList}">
+                                            <input type="hidden" th:field="*{selectionDto.wardList[__${itemStat.index}__].selected}">
+                                            <input type='hidden' th:field="*{selectionDto.wardList[__${itemStat.index}__].attributeName}">
+                                        </a>
+
+                                        <a th:each ="attribute, itemStat : *{selectionDto.examinationList}">
+                                        <input type="hidden" th:field="*{selectionDto.examinationList[__${itemStat.index}__].selected}">
+                                        <input type='hidden' th:field="*{selectionDto.examinationList[__${itemStat.index}__].attributeName}">
+                                        </a>
+
+                                        <input type="hidden" class="btn-check" th:field="*{selectionDto.sort}" value="WARD" autocomplete="off" checked>
+                                        <input type="hidden" class="btn-check" th:field="*{selectionDto.sort}" value="EXAMINATION" autocomplete="off">
+
+                                        <input class="form-check-input" type="hidden" th:field="*{selectionDto.incCompletedJobs}">
+                                        <input type='hidden' th:name="${selectionDto.incCompletedJobs}">
+
+                                        <div>
+                                            <button type="submit"
+                                                    class="btn btn-success btn-sm"
+                                                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .95rem; --bs-btn-font-size: .75rem;">
+                                                    Move Phase <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </td>
                                 <td>
                                     <a th:href="@{/revokePatientTransportPhase/{id}(id=${patientTransport.jobId})}"
