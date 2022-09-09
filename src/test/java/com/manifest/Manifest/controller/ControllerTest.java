@@ -246,7 +246,7 @@ class ControllerTest {
         Mockito.when(patientTransportService.movePatientTransportPhase(Mockito.any(PatientTransport.class))).thenReturn(pt1);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/movePatientTransportPhase/1"))
-                .andExpect(MockMvcResultMatchers.status().is(302));
+                .andExpect(MockMvcResultMatchers.status().is(200));
 
         Mockito.verify(patientTransportService).getPatientTransportById(1L);
         Mockito.verify(patientTransportService).savePatientTransport(Mockito.any(PatientTransport.class));
@@ -262,7 +262,7 @@ class ControllerTest {
         Mockito.when(patientTransportService.revokePatientTransportPhase(Mockito.any(PatientTransport.class))).thenReturn(pt1);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/revokePatientTransportPhase/1"))
-                .andExpect(MockMvcResultMatchers.status().is(302));
+                .andExpect(MockMvcResultMatchers.status().is(200));
 
         Mockito.verify(patientTransportService).getPatientTransportById(1L);
         Mockito.verify(patientTransportService).savePatientTransport(Mockito.any(PatientTransport.class));
