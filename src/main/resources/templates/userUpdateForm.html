@@ -42,9 +42,10 @@
             <div class="col">
                 <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
                     <input type="hidden" th:field="*{password}"/>
+                    <input type="hidden" th:field="*{userId}"/>
                     <div class="mb-3">
-                        <label for="patientName" class="form-label">User ID:</label>
-                        <input type="text" class="form-control" id="patientName" th:field="*{userId}" disabled>
+                        <label for="userId" class="form-label">User ID:</label>
+                        <input type="text" class="form-control" id="userId" th:field="*{userId}" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="patientName" class="form-label">Name:</label>
